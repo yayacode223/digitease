@@ -1,0 +1,25 @@
+services:
+  digitease-front:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: digitease-frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - digitease-network
+
+networks:
+  digitease-network:
+    driver: bridge
