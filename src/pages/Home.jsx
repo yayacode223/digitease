@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense } from 'react'
+import React, { Suspense } from 'react'
 import { Navbar, Hero, Services, Equipes, FAQ } from '../components'
 import { Footer } from '../components'
 import SEOHead from '../components/SEOHead'
@@ -6,12 +6,6 @@ import { LoadingSpinner } from '../components/ui/FeedbackComponents'
 import Box from '@mui/material/Box'
 
 const Home = () => {
-  useEffect(() => {
-    if (window.scrollY > 0) {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }, [])
-
   return (
     <Box
       component="div"
