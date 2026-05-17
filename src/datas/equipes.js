@@ -28,9 +28,9 @@ const equipes = [
     },
     {
         nom: "Coulibaly Yaya",
-        poste: "Developpeur Full Stack web et Mobile & DevOps",
+        poste: "Élève-ingénieur logiciel – Full Stack Web, Mobile & DevOps",
         image: yahya,
-        description: "Développeur full stack expérimenté, maîtrisant plusieurs langages. Passionné par le web et le mobile, doté d'une solide expertise en front-end et back-end.",
+        description: "Full stack web & mobile, passionné d'architecture logicielle et d'automatisation DevOps. De l'UI réactive à la CI/CD, conception de solutions robustes de bout en bout.",
         network: {
             facebook: "https://facebook.com/yaya",
             linkedin: "https://www.linkedin.com/in/yaya-coulibaly-433976220/",

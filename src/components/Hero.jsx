@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaArrowRight, FaCheckCircle } from 'react-icons/fa';
 import { SiReact, SiNodedotjs, SiPython, SiAmazonwebservices, SiDocker } from 'react-icons/si';
 import { hero_img } from '../assets';
@@ -10,7 +11,6 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import TerminalIcon from '@mui/icons-material/Terminal';
 import { useTheme } from '../contexts/ThemeContext';
-import { alpha } from '@mui/material/styles';
 
 const techStack = [
   { icon: <SiReact size={13} />, label: 'React' },
@@ -22,6 +22,7 @@ const techStack = [
 
 const Hero = () => {
   const { isDark } = useTheme();
+  const navigate = useNavigate();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -183,7 +184,7 @@ const Hero = () => {
                     variant="contained"
                     size="large"
                     endIcon={<FaArrowRight size={12} />}
-                    href="/contact"
+                    onClick={() => navigate('/contact')}
                     sx={{
                       bgcolor: '#2563eb',
                       borderRadius: '8px',
