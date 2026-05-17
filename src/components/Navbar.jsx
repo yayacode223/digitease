@@ -34,10 +34,9 @@ const Navbar = ({ isHome }) => {
 
   const navLinks = [
     { label: 'Accueil', href: '#', onClick: () => navigate('/') },
-    { label: 'À propos', href: '#hero' },
     { label: 'Services', href: '#services' },
     { label: 'Équipe', href: '#equipes' },
-    { label: 'Témoignages', href: '#testimonials' },
+    { label: 'FAQ', href: '#faq' },
   ];
 
   const scrolledBg = isDark ? 'rgba(15, 23, 42, 0.97)' : 'rgba(255, 255, 255, 0.97)';

@@ -16,7 +16,7 @@ const Equipes = () => {
       id="equipes"
       component="section"
       sx={{
-        py: { xs: 8, sm: 10, md: 14 },
+        py: { xs: 6, sm: 8, md: 10 },
         bgcolor: isDark ? '#0f172a' : '#ffffff',
         transition: 'background-color 0.3s ease',
       }}
@@ -29,7 +29,7 @@ const Equipes = () => {
           transition={{ duration: 0.55 }}
         >
           {/* Section Header */}
-          <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 10 } }}>
+          <Box sx={{ textAlign: 'center', mb: { xs: 5, md: 8 } }}>
             <Box
               sx={{
                 display: 'inline-flex',

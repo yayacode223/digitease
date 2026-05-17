@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense } from 'react'
-import { Navbar, Hero, Services, Equipes, FAQ, Temoignages } from '../components'
+import { Navbar, Hero, Services, Equipes, FAQ } from '../components'
 import { Footer } from '../components'
 import SEOHead from '../components/SEOHead'
 import { LoadingSpinner } from '../components/ui/FeedbackComponents'
@@ -13,17 +13,17 @@ const Home = () => {
   }, [])
 
   return (
-    <Box 
-      component="div" 
-      sx={{ 
-        bgcolor: 'var(--bg-primary)', 
+    <Box
+      component="div"
+      sx={{
+        bgcolor: 'var(--bg-primary)',
         minHeight: '100vh',
         transition: 'background-color 0.3s ease',
       }}
     >
-      <SEOHead 
+      <SEOHead
         title="DigitEase - Digitalisons votre business | Solutions numériques sur mesure"
-        description="DigitEase est une startup innovante spécialisée dans la digitalisation des entreprises. Création de sites web, SEO, transformation digitale et solutions sur mesure."
+        description="DigitEase est une startup innovante spécialisée dans la digitalisation des entreprises. Création de sites web, IA, cloud et transformation digitale sur mesure."
       />
       <Navbar isHome={true} />
       <Box component="main" role="main" aria-label="Contenu principal">
@@ -31,7 +31,6 @@ const Home = () => {
           <Hero />
           <Services />
           <Equipes />
-          <Temoignages />
           <FAQ />
         </Suspense>
       </Box>

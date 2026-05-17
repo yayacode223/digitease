@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { questions } from './index';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -6,34 +6,35 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Container from '@mui/material/Container';
-import Chip from '@mui/material/Chip';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+import Chip from '@mui/material/Chip';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import LinkIcon from '@mui/icons-material/Link';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { motion } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
 
 const ListContent = ({ items, isDark }) => (
   <List dense disablePadding>
     {items.map((item, idx) => (
-      <ListItem key={idx} disableGutters sx={{ py: 0.5 }}>
-        <ListItemIcon sx={{ minWidth: 32 }}>
-          <ArrowRightIcon sx={{ color: isDark ? '#60a5fa' : '#1a56db', fontSize: 20 }} />
+      <ListItem key={idx} disableGutters sx={{ py: 0.4 }}>
+        <ListItemIcon sx={{ minWidth: 26 }}>
+          <ArrowRightIcon sx={{ color: '#2563eb', fontSize: 18 }} />
         </ListItemIcon>
-        <ListItemText 
-          primary={item} 
-          primaryTypographyProps={{ 
-            sx: { color: isDark ? '#cbd5e1' : '#4b5563', fontSize: { xs: '0.875rem', sm: '0.95rem' } } 
-          }} 
+        <ListItemText
+          primary={item}
+          primaryTypographyProps={{
+            sx: { color: isDark ? '#94a3b8' : '#475569', fontSize: '0.875rem', lineHeight: 1.6 },
+          }}
         />
       </ListItem>
     ))}
@@ -43,30 +44,51 @@ const ListContent = ({ items, isDark }) => (
 const StepsContent = ({ items, isDark }) => (
   <List dense disablePadding>
     {items.map((item, idx) => (
-      <ListItem key={idx} disableGutters sx={{ py: 0.75, alignItems: 'flex-start' }}>
-        <ListItemIcon sx={{ minWidth: 40, mt: 0.5 }}>
-          <Avatar sx={{ width: 24, height: 24, fontSize: '0.75rem', fontWeight: 700, bgcolor: isDark ? '#3b82f6' : '#1a56db', color: 'white' }}>
+      <ListItem key={idx} disableGutters sx={{ py: 0.6, alignItems: 'flex-start' }}>
+        <ListItemIcon sx={{ minWidth: 36, mt: 0.25 }}>
+          <Avatar sx={{
+            width: 22, height: 22,
+            fontSize: '0.7rem', fontWeight: 700,
+            bgcolor: '#2563eb', color: 'white',
+          }}>
             {idx + 1}
           </Avatar>
         </ListItemIcon>
-        <ListItemText primary={item} primaryTypographyProps={{ sx: { color: isDark ? '#cbd5e1' : '#4b5563', fontSize: { xs: '0.875rem', sm: '0.95rem' }, lineHeight: 1.6 } }} />
+        <ListItemText
+          primary={item}
+          primaryTypographyProps={{
+            sx: { color: isDark ? '#94a3b8' : '#475569', fontSize: '0.875rem', lineHeight: 1.6 },
+          }}
+        />
       </ListItem>
     ))}
   </List>
 );
 
 const OptionsContent = ({ items, isDark }) => (
-  <Stack spacing={1.5}>
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-      <ScheduleIcon sx={{ color: isDark ? '#60a5fa' : '#1a56db', fontSize: 20 }} />
-      <Typography sx={{ color: isDark ? '#f1f5f9' : '#111827', fontWeight: 600, fontSize: { xs: '0.875rem', sm: '0.95rem' } }}>
+  <Stack spacing={1.25}>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
+      <ScheduleIcon sx={{ color: '#2563eb', fontSize: 18 }} />
+      <Typography sx={{ color: isDark ? '#e2e8f0' : '#0f172a', fontWeight: 600, fontSize: '0.875rem' }}>
         Options flexibles :
       </Typography>
     </Box>
     {items.map((item, idx) => (
-      <Box key={idx} sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1.5, sm: 2 }, pl: { xs: 2, sm: 3.5 }, flexWrap: 'wrap' }}>
-        <Chip label={item.label} size="small" sx={{ bgcolor: isDark ? 'rgba(59, 130, 246, 0.2)' : 'rgba(26, 86, 219, 0.1)', color: isDark ? '#60a5fa' : '#1a56db', fontWeight: 600, minWidth: { xs: 80, sm: 100 } }} />
-        <Typography sx={{ color: isDark ? '#cbd5e1' : '#4b5563', fontSize: { xs: '0.875rem', sm: '0.95rem' } }}>{item.value}</Typography>
+      <Box key={idx} sx={{ display: 'flex', alignItems: 'center', gap: 2, pl: 3 }}>
+        <Chip
+          label={item.label}
+          size="small"
+          sx={{
+            bgcolor: isDark ? 'rgba(37,99,235,0.15)' : 'rgba(37,99,235,0.08)',
+            color: '#2563eb',
+            fontWeight: 600,
+            fontSize: '0.75rem',
+            minWidth: 80,
+          }}
+        />
+        <Typography sx={{ color: isDark ? '#94a3b8' : '#475569', fontSize: '0.875rem' }}>
+          {item.value}
+        </Typography>
       </Box>
     ))}
   </Stack>
@@ -75,35 +97,49 @@ const OptionsContent = ({ items, isDark }) => (
 const CheckContent = ({ items, isDark }) => (
   <List dense disablePadding>
     {items.map((item, idx) => (
-      <ListItem key={idx} disableGutters sx={{ py: 0.5 }}>
-        <ListItemIcon sx={{ minWidth: 32 }}>
-          <CheckCircleIcon sx={{ color: '#10b981', fontSize: 20 }} />
+      <ListItem key={idx} disableGutters sx={{ py: 0.4 }}>
+        <ListItemIcon sx={{ minWidth: 26 }}>
+          <CheckCircleIcon sx={{ color: '#059669', fontSize: 16 }} />
         </ListItemIcon>
-        <ListItemText primary={item} primaryTypographyProps={{ sx: { color: isDark ? '#cbd5e1' : '#4b5563', fontSize: { xs: '0.875rem', sm: '0.95rem' } } }} />
+        <ListItemText
+          primary={item}
+          primaryTypographyProps={{
+            sx: { color: isDark ? '#94a3b8' : '#475569', fontSize: '0.875rem', lineHeight: 1.6 },
+          }}
+        />
       </ListItem>
     ))}
   </List>
 );
 
 const PricingContent = ({ data, isDark }) => (
-  <Stack spacing={2}>
+  <Stack spacing={1.5}>
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-      <AttachMoneyIcon sx={{ color: '#f59e0b', fontSize: 22 }} />
-      <Typography sx={{ color: isDark ? '#f1f5f9' : '#111827', fontWeight: 600, fontSize: { xs: '0.875rem', sm: '0.95rem' } }}>{data.intro}</Typography>
+      <AttachMoneyIcon sx={{ color: '#d97706', fontSize: 20 }} />
+      <Typography sx={{ color: isDark ? '#e2e8f0' : '#0f172a', fontWeight: 600, fontSize: '0.875rem' }}>
+        {data.intro}
+      </Typography>
     </Box>
     <List dense disablePadding sx={{ pl: 1 }}>
       {data.items.map((item, idx) => (
-        <ListItem key={idx} disableGutters sx={{ py: 0.5 }}>
-          <ListItemIcon sx={{ minWidth: 32 }}>
-            <ArrowRightIcon sx={{ color: isDark ? '#60a5fa' : '#1a56db', fontSize: 20 }} />
+        <ListItem key={idx} disableGutters sx={{ py: 0.4 }}>
+          <ListItemIcon sx={{ minWidth: 26 }}>
+            <ArrowRightIcon sx={{ color: '#2563eb', fontSize: 18 }} />
           </ListItemIcon>
-          <ListItemText primary={item} primaryTypographyProps={{ sx: { color: isDark ? '#cbd5e1' : '#4b5563', fontSize: { xs: '0.875rem', sm: '0.95rem' } } }} />
+          <ListItemText
+            primary={item}
+            primaryTypographyProps={{
+              sx: { color: isDark ? '#94a3b8' : '#475569', fontSize: '0.875rem' },
+            }}
+          />
         </ListItem>
       ))}
     </List>
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, pl: 1 }}>
-      <LinkIcon sx={{ color: '#0891b2', fontSize: 18 }} />
-      <Typography sx={{ color: '#0891b2', fontSize: { xs: '0.85rem', sm: '0.9rem' }, fontWeight: 500 }}>{data.cta}</Typography>
+      <LinkIcon sx={{ color: '#0891b2', fontSize: 16 }} />
+      <Typography sx={{ color: '#0891b2', fontSize: '0.85rem', fontWeight: 500 }}>
+        {data.cta}
+      </Typography>
     </Box>
   </Stack>
 );
@@ -115,33 +151,159 @@ const renderContent = (item, isDark) => {
     case 'options': return <OptionsContent items={item.reponse} isDark={isDark} />;
     case 'check': return <CheckContent items={item.reponse} isDark={isDark} />;
     case 'pricing': return <PricingContent data={item.reponse} isDark={isDark} />;
-    default: return <Typography sx={{ color: isDark ? '#94a3b8' : '#6b7280', fontSize: { xs: '0.875rem', sm: '0.95rem' }, lineHeight: 1.8 }}>{item.reponse}</Typography>;
+    default:
+      return (
+        <Typography sx={{ color: isDark ? '#64748b' : '#64748b', fontSize: '0.875rem', lineHeight: 1.75 }}>
+          {item.reponse}
+        </Typography>
+      );
   }
 };
 
 const FAQ = () => {
   const { isDark } = useTheme();
+
   return (
-    <Box id="faq" component="section" sx={{ py: { xs: 6, sm: 8, md: 12 }, bgcolor: isDark ? '#0f172a' : '#ffffff', transition: 'background-color 0.3s ease' }}>
+    <Box
+      id="faq"
+      component="section"
+      sx={{
+        py: { xs: 6, sm: 8, md: 10 },
+        bgcolor: isDark ? '#1e293b' : '#f8fafc',
+        transition: 'background-color 0.3s ease',
+      }}
+    >
       <Container maxWidth="md">
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-          <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 10 } }}>
-            <Chip label="FAQ" sx={{ mb: 2, bgcolor: isDark ? 'rgba(59, 130, 246, 0.2)' : 'rgba(26, 86, 219, 0.1)', color: isDark ? '#60a5fa' : '#1a56db', fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' }, py: 2, px: 1 }} />
-            <Typography variant="h2" sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: { xs: '1.75rem', sm: '2rem', md: '2.75rem' }, color: isDark ? '#f1f5f9' : '#111827', mb: 2, transition: 'color 0.3s ease' }}>
-              Questions{' '}<Box component="span" sx={{ background: 'linear-gradient(135deg, #1a56db 0%, #0891b2 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>fréquentes</Box>
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          {/* Section Header */}
+          <Box sx={{ textAlign: 'center', mb: { xs: 5, md: 7 } }}>
+            <Box
+              sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 0.75,
+                mb: 3,
+                px: 1.5,
+                py: 0.625,
+                borderRadius: '6px',
+                bgcolor: isDark ? 'rgba(37,99,235,0.15)' : 'rgba(37,99,235,0.08)',
+                border: '1px solid',
+                borderColor: isDark ? 'rgba(37,99,235,0.3)' : 'rgba(37,99,235,0.15)',
+              }}
+            >
+              <HelpOutlineIcon sx={{ fontSize: 14, color: '#2563eb' }} />
+              <Typography sx={{
+                fontSize: '0.78rem',
+                fontWeight: 600,
+                color: '#2563eb',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+              }}>
+                FAQ
+              </Typography>
+            </Box>
+
+            <Typography
+              variant="h2"
+              sx={{
+                fontFamily: '"Inter", sans-serif',
+                fontWeight: 800,
+                fontSize: { xs: '1.75rem', sm: '2.1rem', md: '2.5rem' },
+                letterSpacing: '-0.03em',
+                color: isDark ? '#f1f5f9' : '#0f172a',
+                mb: 2,
+                lineHeight: 1.15,
+              }}
+            >
+              Questions{' '}
+              <Box
+                component="span"
+                sx={{
+                  background: 'linear-gradient(135deg, #2563eb 0%, #0891b2 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                fréquentes
+              </Box>
             </Typography>
-            <Typography sx={{ fontSize: { xs: '0.9rem', sm: '1rem', md: '1.125rem' }, color: isDark ? '#94a3b8' : '#6b7280', maxWidth: '500px', mx: 'auto', lineHeight: 1.7, px: { xs: 2, sm: 0 }, transition: 'color 0.3s ease' }}>
-              Vos doutes seront clarifiés en quelques réponses
+
+            <Box sx={{
+              width: 40, height: 3,
+              background: 'linear-gradient(90deg, #2563eb, #0891b2)',
+              borderRadius: '2px',
+              mx: 'auto',
+              mb: 2.5,
+            }} />
+
+            <Typography sx={{
+              fontSize: { xs: '0.9rem', md: '1rem' },
+              color: isDark ? '#64748b' : '#64748b',
+              maxWidth: '440px',
+              mx: 'auto',
+              lineHeight: 1.7,
+            }}>
+              Vos doutes clarifiés en quelques réponses
             </Typography>
           </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+
+          {/* Accordion list */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
             {questions.map((item, index) => (
-              <motion.div key={index} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: index * 0.1 }}>
-                <Accordion sx={{ borderRadius: '12px !important', border: '1px solid', borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)', bgcolor: isDark ? '#1e293b' : '#ffffff', boxShadow: 'none', transition: 'all 0.3s ease', '&:before': { display: 'none' }, '&.Mui-expanded': { margin: 0, boxShadow: isDark ? '0 4px 20px -8px rgba(59, 130, 246, 0.3)' : '0 4px 20px -8px rgba(26, 86, 219, 0.2)', borderColor: isDark ? 'rgba(59, 130, 246, 0.4)' : 'rgba(26, 86, 219, 0.3)' }, overflow: 'hidden' }}>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: isDark ? '#60a5fa' : '#1a56db', transition: 'transform 0.3s ease' }} />} aria-controls={`faq-content-${index}`} id={`faq-header-${index}`} sx={{ py: 1, px: { xs: 2, sm: 3 }, '& .MuiAccordionSummary-content': { my: 2 } }}>
-                    <Typography sx={{ fontWeight: 600, fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' }, color: isDark ? '#f1f5f9' : '#111827', transition: 'color 0.3s ease' }}>{item.question}</Typography>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: index * 0.06 }}
+              >
+                <Accordion
+                  sx={{
+                    borderRadius: '10px !important',
+                    border: '1px solid',
+                    borderColor: isDark ? 'rgba(255,255,255,0.07)' : '#e2e8f0',
+                    bgcolor: isDark ? '#0f172a' : '#ffffff',
+                    boxShadow: 'none',
+                    '&:before': { display: 'none' },
+                    '&.Mui-expanded': {
+                      margin: 0,
+                      borderColor: isDark ? 'rgba(37,99,235,0.35)' : 'rgba(37,99,235,0.2)',
+                      boxShadow: isDark
+                        ? '0 4px 16px -4px rgba(37,99,235,0.2)'
+                        : '0 4px 16px -4px rgba(37,99,235,0.12)',
+                    },
+                    transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+                  }}
+                >
+                  <AccordionSummary
+                    expandIcon={
+                      <ExpandMoreIcon sx={{ color: '#2563eb', fontSize: 20, transition: 'transform 0.25s ease' }} />
+                    }
+                    aria-controls={`faq-content-${index}`}
+                    id={`faq-header-${index}`}
+                    sx={{
+                      px: { xs: 2.5, sm: 3 },
+                      minHeight: '52px !important',
+                      '& .MuiAccordionSummary-content': { my: '14px' },
+                    }}
+                  >
+                    <Typography sx={{
+                      fontWeight: 600,
+                      fontSize: { xs: '0.875rem', sm: '0.9375rem' },
+                      color: isDark ? '#e2e8f0' : '#0f172a',
+                      lineHeight: 1.5,
+                    }}>
+                      {item.question}
+                    </Typography>
                   </AccordionSummary>
-                  <AccordionDetails sx={{ px: { xs: 2, sm: 3 }, pb: 3, pt: 0 }}>{renderContent(item, isDark)}</AccordionDetails>
+                  <AccordionDetails sx={{ px: { xs: 2.5, sm: 3 }, pb: 2.5, pt: 0 }}>
+                    {renderContent(item, isDark)}
+                  </AccordionDetails>
                 </Accordion>
               </motion.div>
             ))}
