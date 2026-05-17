@@ -15,6 +15,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
+import Divider from '@mui/material/Divider';
 import { useTheme } from '../contexts/ThemeContext';
 import { digiteaseLogo, digiteaseLogoDark } from '../assets';
 
@@ -25,9 +26,7 @@ const Navbar = ({ isHome }) => {
   const { theme, isDark, toggleTheme } = useTheme();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -40,88 +39,97 @@ const Navbar = ({ isHome }) => {
     { label: 'Témoignages', href: '#testimonials' },
   ];
 
+  const scrolledBg = isDark ? 'rgba(15, 23, 42, 0.97)' : 'rgba(255, 255, 255, 0.97)';
+  const transparentBg = 'transparent';
+
   return (
-    <AppBar 
-      position="fixed" 
-      elevation={scrolled ? 4 : 0}
-      sx={{ 
-        zIndex: 1100, 
-        bgcolor: scrolled 
-          ? (isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.98)') 
-          : 'transparent',
-        backdropFilter: scrolled ? 'blur(10px)' : 'none',
-        transition: 'all 0.3s ease',
-        borderBottom: scrolled 
-          ? (isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.08)') 
-          : 'none',
+    <AppBar
+      position="fixed"
+      elevation={0}
+      sx={{
+        zIndex: 1100,
+        bgcolor: scrolled ? scrolledBg : transparentBg,
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        transition: 'background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease',
+        borderBottom: scrolled
+          ? `1px solid ${isDark ? 'rgba(255,255,255,0.07)' : '#e2e8f0'}`
+          : '1px solid transparent',
       }}
     >
-      <Toolbar 
-        sx={{ 
-          maxWidth: '1280px', 
-          mx: 'auto', 
-          width: '100%', 
+      <Toolbar
+        sx={{
+          maxWidth: '1280px',
+          mx: 'auto',
+          width: '100%',
           px: { xs: 2, sm: 3, md: 4 },
-          minHeight: { xs: 64, md: 80 },
+          minHeight: { xs: 64, md: 72 },
           display: 'flex',
           justifyContent: 'space-between',
         }}
       >
         {/* Logo */}
-        <Box 
+        <Box
           onClick={() => navigate('/')}
-          sx={{ 
-            display: 'flex',
-            alignItems: 'center',
-            cursor: 'pointer',
-            flexShrink: 0,
-          }}
+          sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', flexShrink: 0 }}
         >
-          <Box 
+          <Box
             component="img"
             src={isDark ? digiteaseLogoDark : digiteaseLogo}
             alt="DigitEase"
-            sx={{ 
-              height: { xs: 36, sm: 44, md: 48 },
-              width: 'auto',
-              objectFit: 'contain',
-            }}
+            sx={{ height: { xs: 34, sm: 40, md: 44 }, width: 'auto', objectFit: 'contain' }}
           />
         </Box>
 
-        {/* Desktop Navigation - Centered */}
+        {/* Desktop Navigation */}
         {isHome && (
-          <Box 
-            sx={{ 
+          <Box
+            sx={{
               display: { xs: 'none', md: 'flex' },
               alignItems: 'center',
-              gap: 0.5,
+              gap: 0,
               flex: 1,
               justifyContent: 'center',
-              ml: 4,
-              mr: 4,
+              mx: 4,
             }}
           >
             {navLinks.map((link) => (
               <Button
                 key={link.label}
-                onClick={link.onClick ? link.onClick : undefined}
+                onClick={link.onClick}
                 href={link.href !== '#' ? link.href : undefined}
-                sx={{ 
-                  textTransform: 'none', 
+                sx={{
+                  textTransform: 'none',
                   fontWeight: 500,
-                  fontSize: '0.95rem',
-                  color: isDark 
-                    ? (scrolled ? '#e2e8f0' : '#f1f5f9') 
-                    : (scrolled ? '#374151' : '#1f2937'),
-                  px: 2.5,
+                  fontSize: '0.9375rem',
+                  color: isDark
+                    ? (scrolled ? '#cbd5e1' : '#e2e8f0')
+                    : (scrolled ? '#475569' : '#374151'),
+                  px: 2,
                   py: 1,
-                  borderRadius: 2,
-                  whiteSpace: 'nowrap',
+                  borderRadius: '6px',
+                  letterSpacing: 0,
+                  position: 'relative',
                   '&:hover': {
-                    bgcolor: isDark ? 'rgba(59, 130, 246, 0.15)' : 'rgba(26, 86, 219, 0.08)',
-                    color: isDark ? '#60a5fa' : '#1a56db',
-                  }
+                    bgcolor: 'transparent',
+                    color: isDark ? '#f1f5f9' : '#0f172a',
+                    '&::after': { transform: 'scaleX(1)' },
+                  },
+                  '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    bottom: 6,
+                    left: '50%',
+                    right: '50%',
+                    transform: 'scaleX(0)',
+                    transformOrigin: 'center',
+                    height: '2px',
+                    bgcolor: '#2563eb',
+                    borderRadius: '1px',
+                    transition: 'transform 0.2s ease',
+                    left: 8,
+                    right: 8,
+                    width: 'calc(100% - 16px)',
+                  },
                 }}
               >
                 {link.label}
@@ -130,21 +138,22 @@ const Navbar = ({ isHome }) => {
           </Box>
         )}
 
-        {/* Right side actions */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 2 }, flexShrink: 0 }}>
-          {/* Theme Toggle Button */}
+        {/* Right side */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexShrink: 0 }}>
+          {/* Theme Toggle */}
           <Tooltip title={isDark ? 'Mode clair' : 'Mode sombre'}>
             <IconButton
               onClick={toggleTheme}
-              sx={{ 
-                color: isDark ? '#fbbf24' : '#6b7280',
-                bgcolor: isDark ? 'rgba(251, 191, 36, 0.1)' : 'rgba(107, 114, 128, 0.1)',
+              size="small"
+              sx={{
+                color: isDark ? '#94a3b8' : '#64748b',
                 '&:hover': {
-                  bgcolor: isDark ? 'rgba(251, 191, 36, 0.2)' : 'rgba(107, 114, 128, 0.2)',
-                }
+                  bgcolor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)',
+                  color: isDark ? '#e2e8f0' : '#0f172a',
+                },
               }}
             >
-              {isDark ? <LightModeIcon /> : <DarkModeIcon />}
+              {isDark ? <LightModeIcon sx={{ fontSize: 20 }} /> : <DarkModeIcon sx={{ fontSize: 20 }} />}
             </IconButton>
           </Tooltip>
 
@@ -152,34 +161,37 @@ const Navbar = ({ isHome }) => {
           <Button
             variant="contained"
             onClick={() => navigate('/contact')}
-            sx={{ 
+            sx={{
               display: { xs: 'none', md: 'flex' },
-              background: 'linear-gradient(135deg, #1a56db 0%, #1e40af 100%)',
-              borderRadius: 2, 
-              boxShadow: '0 4px 14px 0 rgba(26, 86, 219, 0.39)',
+              bgcolor: '#2563eb',
+              borderRadius: '8px',
               textTransform: 'none',
               fontWeight: 600,
-              px: 3,
-              py: 1.25,
+              fontSize: '0.9rem',
+              px: 2.5,
+              py: 1.125,
+              boxShadow: 'none',
               '&:hover': {
-                background: 'linear-gradient(135deg, #1e40af 0%, #1a56db 100%)',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 6px 20px 0 rgba(26, 86, 219, 0.5)',
-              }
+                bgcolor: '#1e40af',
+                boxShadow: '0 4px 14px 0 rgba(37,99,235,0.3)',
+                transform: 'translateY(-1px)',
+              },
+              transition: 'all 0.2s ease',
             }}
           >
             Nous Contacter
           </Button>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile menu button */}
           {isHome && (
             <IconButton
               edge="end"
               aria-label="menu"
               onClick={() => setShowMenu(true)}
-              sx={{ 
+              sx={{
                 display: { xs: 'flex', md: 'none' },
-                color: isDark ? '#e2e8f0' : '#1f2937' 
+                color: isDark ? '#cbd5e1' : '#374151',
+                '&:hover': { bgcolor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)' },
               }}
             >
               <MenuIcon />
@@ -194,60 +206,61 @@ const Navbar = ({ isHome }) => {
         open={showMenu}
         onClose={() => setShowMenu(false)}
         PaperProps={{
-          sx: { 
-            width: { xs: '85%', sm: 320 },
-            maxWidth: 360,
-            borderRadius: '16px 0 0 16px',
-            bgcolor: isDark ? '#1e293b' : '#ffffff',
-          }
+          sx: {
+            width: { xs: '82%', sm: 300 },
+            maxWidth: 340,
+            bgcolor: isDark ? '#0f172a' : '#ffffff',
+            borderLeft: '1px solid',
+            borderColor: isDark ? 'rgba(255,255,255,0.07)' : '#e2e8f0',
+          },
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', p: 3 }}>
           {/* Header */}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-            <Box 
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 5 }}>
+            <Box
               component="img"
               src={isDark ? digiteaseLogoDark : digiteaseLogo}
               alt="DigitEase"
-              sx={{ 
-                height: 40,
-                width: 'auto',
-                objectFit: 'contain',
-              }}
+              sx={{ height: 36, width: 'auto', objectFit: 'contain' }}
             />
-            <IconButton 
-              onClick={() => setShowMenu(false)} 
-              aria-label="close menu"
-              sx={{ color: isDark ? '#94a3b8' : '#6b7280' }}
+            <IconButton
+              onClick={() => setShowMenu(false)}
+              size="small"
+              sx={{ color: isDark ? '#64748b' : '#94a3b8' }}
             >
-              <CloseIcon />
+              <CloseIcon fontSize="small" />
             </IconButton>
           </Box>
-          
-          {/* Navigation Links */}
-          <List sx={{ flex: 1 }}>
-            {navLinks.map((link) => (
-              <ListItem key={link.label} disablePadding sx={{ mb: 1 }}>
+
+          {/* Nav links */}
+          <List sx={{ flex: 1, py: 0 }} disablePadding>
+            {navLinks.map((link, index) => (
+              <ListItem key={link.label} disablePadding>
                 <ListItemButton
                   onClick={() => {
                     setShowMenu(false);
                     if (link.onClick) link.onClick();
                   }}
                   href={link.href !== '#' ? link.href : undefined}
-                  sx={{ 
-                    borderRadius: 2,
-                    py: 1.5,
-                    '&:hover': { 
-                      bgcolor: isDark ? 'rgba(59, 130, 246, 0.15)' : 'rgba(26, 86, 219, 0.08)' 
-                    }
+                  sx={{
+                    borderRadius: '6px',
+                    py: 1.25,
+                    px: 1.5,
+                    mb: 0.5,
+                    '&:hover': {
+                      bgcolor: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+                      '& .MuiListItemText-primary': { color: '#2563eb' },
+                    },
                   }}
                 >
-                  <ListItemText 
-                    primary={link.label} 
-                    primaryTypographyProps={{ 
+                  <ListItemText
+                    primary={link.label}
+                    primaryTypographyProps={{
                       fontWeight: 500,
-                      color: isDark ? '#e2e8f0' : '#374151',
-                      fontSize: '1rem',
+                      fontSize: '0.9375rem',
+                      color: isDark ? '#cbd5e1' : '#374151',
+                      sx: { transition: 'color 0.15s ease' },
                     }}
                   />
                 </ListItemButton>
@@ -255,54 +268,52 @@ const Navbar = ({ isHome }) => {
             ))}
           </List>
 
-          {/* Theme Toggle in Mobile */}
-          <Box 
-            sx={{ 
-              display: 'flex', 
-              alignItems: 'center', 
+          <Divider sx={{ my: 3, borderColor: isDark ? 'rgba(255,255,255,0.06)' : '#f1f5f9' }} />
+
+          {/* Theme row */}
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
               justifyContent: 'space-between',
-              p: 2,
-              mb: 2,
-              borderRadius: 2,
-              bgcolor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)',
+              mb: 3,
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-              {isDark ? <DarkModeIcon sx={{ color: '#60a5fa' }} /> : <LightModeIcon sx={{ color: '#f59e0b' }} />}
-              <Box sx={{ color: isDark ? '#e2e8f0' : '#374151', fontWeight: 500 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
+              {isDark
+                ? <DarkModeIcon sx={{ fontSize: 18, color: '#64748b' }} />
+                : <LightModeIcon sx={{ fontSize: 18, color: '#94a3b8' }} />
+              }
+              <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: isDark ? '#94a3b8' : '#64748b' }}>
                 {isDark ? 'Mode sombre' : 'Mode clair'}
-              </Box>
+              </Typography>
             </Box>
             <IconButton
               onClick={toggleTheme}
               size="small"
-              sx={{ 
-                bgcolor: isDark ? 'rgba(251, 191, 36, 0.2)' : 'rgba(59, 130, 246, 0.2)',
-                color: isDark ? '#fbbf24' : '#3b82f6',
-                '&:hover': {
-                  bgcolor: isDark ? 'rgba(251, 191, 36, 0.3)' : 'rgba(59, 130, 246, 0.3)',
-                }
+              sx={{
+                bgcolor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                color: isDark ? '#94a3b8' : '#64748b',
+                '&:hover': { bgcolor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.07)' },
               }}
             >
-              {isDark ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
+              {isDark ? <LightModeIcon sx={{ fontSize: 18 }} /> : <DarkModeIcon sx={{ fontSize: 18 }} />}
             </IconButton>
           </Box>
 
-          {/* CTA Button */}
+          {/* CTA */}
           <Button
             variant="contained"
             fullWidth
-            onClick={() => {
-              setShowMenu(false);
-              navigate('/contact');
-            }}
-            sx={{ 
-              background: 'linear-gradient(135deg, #1a56db 0%, #1e40af 100%)',
-              borderRadius: 2, 
+            onClick={() => { setShowMenu(false); navigate('/contact'); }}
+            sx={{
+              bgcolor: '#2563eb',
+              borderRadius: '8px',
               textTransform: 'none',
               fontWeight: 600,
               py: 1.5,
-              boxShadow: '0 4px 14px 0 rgba(26, 86, 219, 0.39)',
+              boxShadow: 'none',
+              '&:hover': { bgcolor: '#1e40af' },
             }}
           >
             Nous Contacter

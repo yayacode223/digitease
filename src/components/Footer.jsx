@@ -1,5 +1,4 @@
 import React from 'react';
-import { contacts, items1 as villes, partenaires, busnesses } from '.';
 import { FaSquareXTwitter } from 'react-icons/fa6';
 import { IoLogoYoutube } from 'react-icons/io';
 import { FaInstagramSquare, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
@@ -13,10 +12,11 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useTheme } from '../contexts/ThemeContext';
-import { digiteaseLogo, digiteaseLogoDark } from '../assets';
+import { digiteaseLogoDark } from '../assets';
 
 const Footer = () => {
   const { isDark } = useTheme();
+
   const footerLinks = [
     {
       title: 'Navigation',
@@ -24,11 +24,11 @@ const Footer = () => {
     },
     {
       title: 'Services',
-      links: ['Développement Web', 'Applications Mobiles', 'IA & Automatisation', 'Consulting Digital'],
+      links: ['Développement Web', 'Applications Mobiles', 'IA & Automatisation', 'Cloud Computing'],
     },
     {
       title: 'Légal',
-      links: ['Mentions légales', 'Politique de confidentialité', 'CGV', 'Cookies'],
+      links: ['Mentions légales', 'Confidentialité', 'CGV', 'Cookies'],
     },
   ];
 
@@ -36,63 +36,62 @@ const Footer = () => {
     <Box
       component="footer"
       sx={{
-        bgcolor: isDark ? '#0f172a' : '#111827',
-        pt: { xs: 6, sm: 8, md: 10 },
-        pb: 4,
-        transition: 'background-color 0.3s ease',
+        bgcolor: '#0f172a',
+        pt: { xs: 8, sm: 10, md: 12 },
+        pb: 5,
       }}
     >
       <Container maxWidth="lg">
         {/* Newsletter Section */}
         <Box
           sx={{
-            mb: { xs: 5, md: 8 },
-            p: { xs: 3, sm: 4, md: 6 },
-            borderRadius: 4,
-            background: isDark 
-              ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(8, 145, 178, 0.15) 100%)'
-              : 'linear-gradient(135deg, rgba(26, 86, 219, 0.15) 0%, rgba(8, 145, 178, 0.15) 100%)',
-            border: '1px solid rgba(255,255,255,0.1)',
+            mb: { xs: 8, md: 10 },
+            p: { xs: 3.5, sm: 5, md: 6 },
+            borderRadius: '16px',
+            background: 'linear-gradient(135deg, rgba(37,99,235,0.18) 0%, rgba(8,145,178,0.12) 100%)',
+            border: '1px solid rgba(37,99,235,0.2)',
           }}
         >
-          <Grid container spacing={{ xs: 2, md: 4 }} alignItems="center">
+          <Grid container spacing={{ xs: 3, md: 5 }} alignItems="center">
             <Grid size={{ xs: 12, md: 6 }}>
               <Typography
                 sx={{
-                  fontFamily: 'Poppins, sans-serif',
+                  fontFamily: '"Inter", sans-serif',
                   fontWeight: 700,
                   fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' },
+                  letterSpacing: '-0.02em',
                   color: '#ffffff',
                   mb: 1,
                 }}
               >
                 Restez informé
               </Typography>
-              <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: { xs: '0.875rem', sm: '1rem' } }}>
+              <Typography sx={{ color: 'rgba(255,255,255,0.6)', fontSize: { xs: '0.875rem', sm: '0.9375rem' } }}>
                 Recevez nos dernières actualités et offres exclusives
               </Typography>
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              <Box sx={{ display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
+              <Box sx={{ display: 'flex', gap: 1.5, flexDirection: { xs: 'column', sm: 'row' } }}>
                 <TextField
-                  placeholder="Votre email"
+                  placeholder="Votre adresse email"
                   variant="outlined"
                   fullWidth
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      bgcolor: 'rgba(255,255,255,0.1)',
-                      borderRadius: 2,
+                      bgcolor: 'rgba(255,255,255,0.06)',
+                      borderRadius: '8px',
                       color: '#fff',
-                      '& fieldset': { borderColor: 'rgba(255,255,255,0.2)' },
-                      '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.4)' },
-                      '&.Mui-focused fieldset': { borderColor: '#1a56db' },
+                      fontSize: '0.9rem',
+                      '& fieldset': { borderColor: 'rgba(255,255,255,0.12)' },
+                      '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.25)' },
+                      '&.Mui-focused fieldset': { borderColor: '#2563eb' },
                     },
-                    '& .MuiInputBase-input::placeholder': { color: 'rgba(255,255,255,0.5)' },
+                    '& .MuiInputBase-input::placeholder': { color: 'rgba(255,255,255,0.35)' },
                   }}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <FaEnvelope color="rgba(255,255,255,0.5)" />
+                        <FaEnvelope color="rgba(255,255,255,0.3)" size={14} />
                       </InputAdornment>
                     ),
                   }}
@@ -100,17 +99,20 @@ const Footer = () => {
                 <Button
                   variant="contained"
                   sx={{
-                    background: 'linear-gradient(135deg, #1a56db 0%, #0891b2 100%)',
-                    borderRadius: 2,
-                    px: 4,
+                    bgcolor: '#2563eb',
+                    borderRadius: '8px',
+                    px: 3.5,
                     py: 1.5,
                     textTransform: 'none',
                     fontWeight: 600,
+                    fontSize: '0.9rem',
                     whiteSpace: 'nowrap',
                     minWidth: 'fit-content',
+                    boxShadow: 'none',
                     '&:hover': {
-                      background: 'linear-gradient(135deg, #0891b2 0%, #1a56db 100%)',
-                    }
+                      bgcolor: '#1e40af',
+                      boxShadow: '0 4px 14px rgba(37,99,235,0.35)',
+                    },
                   }}
                 >
                   S'abonner
@@ -121,45 +123,42 @@ const Footer = () => {
         </Box>
 
         {/* Main Footer Content */}
-        <Grid container spacing={6} sx={{ mb: 6 }}>
+        <Grid container spacing={{ xs: 5, md: 6 }} sx={{ mb: 8 }}>
           {/* Brand Column */}
           <Grid size={{ xs: 12, md: 4 }}>
             <Box
               component="img"
               src={digiteaseLogoDark}
               alt="DigitEase"
-              sx={{
-                height: 50,
-                width: 'auto',
-                objectFit: 'contain',
-                mb: 2,
-              }}
+              sx={{ height: 44, width: 'auto', objectFit: 'contain', mb: 2.5 }}
             />
-            <Typography sx={{ color: 'rgba(255,255,255,0.7)', mb: 3, lineHeight: 1.8, maxWidth: '300px' }}>
-              Votre partenaire de confiance pour la transformation digitale. 
+            <Typography
+              sx={{
+                color: 'rgba(255,255,255,0.5)',
+                mb: 4,
+                lineHeight: 1.8,
+                fontSize: '0.9rem',
+                maxWidth: '280px',
+              }}
+            >
+              Votre partenaire de confiance pour la transformation digitale.
               Nous accompagnons les entreprises vers l'excellence numérique.
             </Typography>
-            
+
             {/* Contact Info */}
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <FaMapMarkerAlt size={16} color="#1a56db" />
-                <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>
-                  Casablanca, Maroc
-                </Typography>
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <FaPhone size={16} color="#1a56db" />
-                <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>
-                  +212 7 79 95 49 88
-                </Typography>
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <FaEnvelope size={16} color="#1a56db" />
-                <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>
-                  contact@digitease.ma
-                </Typography>
-              </Box>
+              {[
+                { icon: <FaMapMarkerAlt size={13} />, text: 'Casablanca, Maroc' },
+                { icon: <FaPhone size={13} />, text: '+212 7 79 95 49 88' },
+                { icon: <FaEnvelope size={13} />, text: 'contact@digitease.ma' },
+              ].map((item, index) => (
+                <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 1.75 }}>
+                  <Box sx={{ color: '#2563eb', flexShrink: 0 }}>{item.icon}</Box>
+                  <Typography sx={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem' }}>
+                    {item.text}
+                  </Typography>
+                </Box>
+              ))}
             </Box>
           </Grid>
 
@@ -169,27 +168,26 @@ const Footer = () => {
               <Typography
                 sx={{
                   fontWeight: 600,
-                  color: '#ffffff',
+                  color: 'rgba(255,255,255,0.85)',
                   mb: 3,
-                  fontSize: '1rem',
+                  fontSize: '0.9rem',
+                  letterSpacing: '0.01em',
                 }}
               >
                 {section.title}
               </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.75 }}>
                 {section.links.map((link, linkIndex) => (
                   <Typography
                     key={linkIndex}
                     component="a"
                     href="#"
                     sx={{
-                      color: 'rgba(255,255,255,0.6)',
-                      fontSize: '0.9rem',
+                      color: 'rgba(255,255,255,0.4)',
+                      fontSize: '0.875rem',
                       textDecoration: 'none',
-                      transition: 'color 0.2s ease',
-                      '&:hover': {
-                        color: '#1a56db',
-                      }
+                      transition: 'color 0.15s ease',
+                      '&:hover': { color: 'rgba(255,255,255,0.85)' },
                     }}
                   >
                     {link}
@@ -204,30 +202,34 @@ const Footer = () => {
             <Typography
               sx={{
                 fontWeight: 600,
-                color: '#ffffff',
+                color: 'rgba(255,255,255,0.85)',
                 mb: 3,
-                fontSize: '1rem',
+                fontSize: '0.9rem',
               }}
             >
               Suivez-nous
             </Typography>
-            <Box sx={{ display: 'flex', gap: 1 }}>
+            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
               {[
-                { icon: <BsFacebook size={18} />, label: 'facebook' },
-                { icon: <FaInstagramSquare size={18} />, label: 'instagram' },
-                { icon: <IoLogoYoutube size={18} />, label: 'youtube' },
-                { icon: <FaSquareXTwitter size={18} />, label: 'twitter' },
+                { icon: <BsFacebook size={16} />, label: 'facebook' },
+                { icon: <FaInstagramSquare size={16} />, label: 'instagram' },
+                { icon: <IoLogoYoutube size={16} />, label: 'youtube' },
+                { icon: <FaSquareXTwitter size={16} />, label: 'twitter' },
               ].map((social, index) => (
                 <IconButton
                   key={index}
                   aria-label={social.label}
+                  size="small"
                   sx={{
-                    bgcolor: 'rgba(255,255,255,0.1)',
-                    color: 'rgba(255,255,255,0.7)',
+                    bgcolor: 'rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    color: 'rgba(255,255,255,0.45)',
                     '&:hover': {
-                      bgcolor: '#1a56db',
+                      bgcolor: '#2563eb',
+                      borderColor: '#2563eb',
                       color: '#fff',
-                    }
+                    },
+                    transition: 'all 0.2s ease',
                   }}
                 >
                   {social.icon}
@@ -241,7 +243,7 @@ const Footer = () => {
         <Box
           sx={{
             pt: 4,
-            borderTop: '1px solid rgba(255,255,255,0.1)',
+            borderTop: '1px solid rgba(255,255,255,0.07)',
             display: 'flex',
             flexDirection: { xs: 'column', sm: 'row' },
             justifyContent: 'space-between',
@@ -249,7 +251,7 @@ const Footer = () => {
             gap: 2,
           }}
         >
-          <Typography sx={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem' }}>
+          <Typography sx={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.8125rem' }}>
             © {new Date().getFullYear()} DigitEase. Tous droits réservés.
           </Typography>
           <Box sx={{ display: 'flex', gap: 3 }}>
@@ -259,10 +261,11 @@ const Footer = () => {
                 component="a"
                 href="#"
                 sx={{
-                  color: 'rgba(255,255,255,0.5)',
-                  fontSize: '0.875rem',
+                  color: 'rgba(255,255,255,0.3)',
+                  fontSize: '0.8125rem',
                   textDecoration: 'none',
-                  '&:hover': { color: '#1a56db' },
+                  transition: 'color 0.15s ease',
+                  '&:hover': { color: 'rgba(255,255,255,0.7)' },
                 }}
               >
                 {link}

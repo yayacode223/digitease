@@ -5,147 +5,150 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import WebIcon from '@mui/icons-material/Web';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import CloudIcon from '@mui/icons-material/Cloud';
 import CodeIcon from '@mui/icons-material/Code';
+import CheckIcon from '@mui/icons-material/Check';
 import { useTheme } from '../contexts/ThemeContext';
 
-// Map icon names to Material UI icons
-const getIconMap = (isDark) => ({
-  web: <WebIcon sx={{ fontSize: 28, color: isDark ? '#60a5fa' : '#1a56db' }} />,
-  ai: <SmartToyIcon sx={{ fontSize: 28, color: isDark ? '#60a5fa' : '#1a56db' }} />,
-  cloud: <CloudIcon sx={{ fontSize: 28, color: isDark ? '#60a5fa' : '#1a56db' }} />,
-  default: <CodeIcon sx={{ fontSize: 28, color: isDark ? '#60a5fa' : '#1a56db' }} />,
+const getIconMap = () => ({
+  web: <WebIcon sx={{ fontSize: 22 }} />,
+  ai: <SmartToyIcon sx={{ fontSize: 22 }} />,
+  cloud: <CloudIcon sx={{ fontSize: 22 }} />,
+  default: <CodeIcon sx={{ fontSize: 22 }} />,
 });
 
 const ServiceCard = ({ id, title, description, specifites, icon }) => {
   const navigate = useNavigate();
   const { isDark } = useTheme();
-  const iconMap = getIconMap(isDark);
+  const iconMap = getIconMap();
   const ServiceIcon = iconMap[icon] || iconMap.default;
-  
+
   return (
     <Card
       sx={{
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        borderRadius: 3,
+        borderRadius: '12px',
         border: '1px solid',
-        borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)',
-        bgcolor: isDark ? '#1e293b' : '#ffffff',
-        boxShadow: isDark 
-          ? '0 4px 6px -1px rgba(0, 0, 0, 0.3)'
-          : '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
-        transition: 'all 0.3s ease',
-        overflow: 'visible',
+        borderColor: isDark ? 'rgba(255,255,255,0.07)' : '#e2e8f0',
+        bgcolor: isDark ? '#0f172a' : '#ffffff',
+        boxShadow: isDark
+          ? '0 1px 3px rgba(0,0,0,0.4)'
+          : '0 1px 3px rgba(0,0,0,0.06)',
+        transition: 'transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease',
         '&:hover': {
-          transform: 'translateY(-8px)',
-          boxShadow: isDark 
-            ? '0 20px 40px -15px rgba(59, 130, 246, 0.3)'
-            : '0 20px 40px -15px rgba(26, 86, 219, 0.2)',
-          borderColor: isDark ? 'rgba(59, 130, 246, 0.4)' : 'rgba(26, 86, 219, 0.3)',
-        }
+          transform: 'translateY(-6px)',
+          boxShadow: isDark
+            ? '0 16px 32px -8px rgba(0,0,0,0.5)'
+            : '0 16px 32px -8px rgba(0,0,0,0.12)',
+          borderColor: isDark ? 'rgba(37,99,235,0.4)' : 'rgba(37,99,235,0.25)',
+        },
       }}
     >
-      <CardContent sx={{ p: { xs: 3, sm: 4 }, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-        {/* Service Icon */}
+      <CardContent sx={{ p: { xs: 3, sm: 3.5 }, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+
+        {/* Icon */}
         <Box
           sx={{
-            width: { xs: 48, sm: 56 },
-            height: { xs: 48, sm: 56 },
-            borderRadius: 2,
-            background: isDark 
-              ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%)'
-              : 'linear-gradient(135deg, rgba(26, 86, 219, 0.1) 0%, rgba(8, 145, 178, 0.1) 100%)',
+            width: 48,
+            height: 48,
+            borderRadius: '10px',
+            bgcolor: isDark ? 'rgba(37,99,235,0.12)' : 'rgba(37,99,235,0.08)',
+            border: '1px solid',
+            borderColor: isDark ? 'rgba(37,99,235,0.25)' : 'rgba(37,99,235,0.15)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             mb: 3,
+            color: '#2563eb',
           }}
         >
           {ServiceIcon}
         </Box>
 
+        {/* Title */}
         <Typography
           variant="h6"
           sx={{
-            fontFamily: 'Poppins, sans-serif',
+            fontFamily: '"Inter", sans-serif',
             fontWeight: 700,
-            fontSize: { xs: '1.1rem', sm: '1.25rem' },
-            color: isDark ? '#f1f5f9' : '#111827',
-            mb: 2,
-            transition: 'color 0.3s ease',
+            fontSize: { xs: '1.05rem', sm: '1.125rem' },
+            letterSpacing: '-0.01em',
+            color: isDark ? '#f1f5f9' : '#0f172a',
+            mb: 1.5,
           }}
         >
           {title}
         </Typography>
 
+        {/* Description */}
         <Typography
           sx={{
-            color: isDark ? '#94a3b8' : '#6b7280',
-            fontSize: { xs: '0.875rem', sm: '0.95rem' },
+            color: isDark ? '#64748b' : '#64748b',
+            fontSize: '0.875rem',
             lineHeight: 1.7,
             mb: 3,
-            transition: 'color 0.3s ease',
           }}
         >
           {description}
         </Typography>
 
-        <Box sx={{ mb: 3, flexGrow: 1 }}>
-          {specifites?.map((item, index) => (
+        {/* Features list */}
+        <Box sx={{ mb: 4, flexGrow: 1 }}>
+          {specifites?.slice(0, 5).map((item, index) => (
             <Box
               key={index}
-              sx={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: 1.5,
-                mb: 1.5,
-              }}
+              sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.25, mb: 1.25 }}
             >
-              <CheckCircleIcon 
-                sx={{ 
-                  fontSize: { xs: 16, sm: 18 }, 
-                  color: isDark ? '#60a5fa' : '#1a56db',
+              <Box
+                sx={{
+                  width: 18,
+                  height: 18,
+                  borderRadius: '50%',
+                  bgcolor: isDark ? 'rgba(37,99,235,0.12)' : 'rgba(37,99,235,0.08)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   flexShrink: 0,
-                  mt: 0.25,
-                }} 
-              />
-              <Typography sx={{ 
-                color: isDark ? '#cbd5e1' : '#374151', 
-                fontSize: { xs: '0.8rem', sm: '0.875rem' }, 
-                lineHeight: 1.5 
-              }}>
+                  mt: 0.125,
+                }}
+              >
+                <CheckIcon sx={{ fontSize: 11, color: '#2563eb' }} />
+              </Box>
+              <Typography
+                sx={{
+                  color: isDark ? '#94a3b8' : '#475569',
+                  fontSize: '0.8125rem',
+                  lineHeight: 1.55,
+                }}
+              >
                 {item}
               </Typography>
             </Box>
           ))}
         </Box>
 
+        {/* CTA */}
         <Button
-          fullWidth
-          variant="outlined"
-          endIcon={<ArrowForwardIcon sx={{ fontSize: 16 }} />}
+          endIcon={<ArrowForwardIcon sx={{ fontSize: '15px !important' }} />}
           onClick={() => navigate('/services/' + id)}
           sx={{
-            borderRadius: 2,
-            py: { xs: 1.25, sm: 1.5 },
             textTransform: 'none',
             fontWeight: 600,
-            fontSize: { xs: '0.875rem', sm: '0.95rem' },
-            borderColor: isDark ? '#60a5fa' : '#1a56db',
-            color: isDark ? '#60a5fa' : '#1a56db',
-            borderWidth: 2,
+            fontSize: '0.875rem',
+            color: '#2563eb',
+            p: 0,
+            justifyContent: 'flex-start',
             '&:hover': {
-              borderWidth: 2,
-              bgcolor: isDark ? '#3b82f6' : '#1a56db',
-              borderColor: isDark ? '#3b82f6' : '#1a56db',
-              color: '#fff',
-            }
+              bgcolor: 'transparent',
+              color: '#1e40af',
+              '& .MuiButton-endIcon': { transform: 'translateX(3px)' },
+            },
+            '& .MuiButton-endIcon': { transition: 'transform 0.2s ease' },
           }}
         >
           En savoir plus
