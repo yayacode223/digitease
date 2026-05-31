@@ -70,7 +70,7 @@ const Footer = () => {
               {[
                 { icon: <FaMapMarkerAlt size={12} />, text: 'Casablanca, Maroc' },
                 { icon: <FaPhone size={12} />, text: '+212 7 79 95 49 88' },
-                { icon: <FaEnvelope size={12} />, text: 'contact@digitease.ma' },
+                { icon: <FaEnvelope size={12} />, text: 'digitease.info@gmail.com' },
               ].map((item, index) => (
                 <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
                   <Box sx={{ color: '#2563eb', flexShrink: 0 }}>{item.icon}</Box>

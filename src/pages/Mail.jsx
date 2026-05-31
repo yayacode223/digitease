@@ -1,93 +1,306 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import Alert from "@mui/material/Alert";
+import CircularProgress from "@mui/material/CircularProgress";
+import Chip from "@mui/material/Chip";
+import EmailIcon from "@mui/icons-material/Email";
+import SendIcon from "@mui/icons-material/Send";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { Navbar, Footer } from "../components";
-import EmailIcon from '@mui/icons-material/Email';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { useTheme } from "../contexts/ThemeContext";
 
-export default function ContactForm() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState("");
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+const INITIAL_FORM = { from_name: "", from_email: "", message: "" };
+
+export default function Mail() {
+  const { isDark } = useTheme();
+  const [formData, setFormData] = useState(INITIAL_FORM);
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+
+  const validate = () => {
+    const next = {};
+    if (!formData.from_name.trim()) next.from_name = "Veuillez entrer votre nom.";
+    if (!formData.from_email.trim()) {
+      next.from_email = "Veuillez entrer votre email.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.from_email)) {
+      next.from_email = "Adresse email invalide.";
+    }
+    if (!formData.message.trim()) next.message = "Veuillez écrire votre message.";
+    else if (formData.message.trim().length < 20)
+      next.message = "Le message doit contenir au moins 20 caractères.";
+    return next;
   };
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Ici tu peux brancher ton backend ou un service comme EmailJS / Formspree
-    console.log("Form submitted:", formData);
-    setStatus("success");
-    setFormData({ name: "", email: "", message: "" });
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    setStatus("loading");
+    try {
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, formData, PUBLIC_KEY);
+      setStatus("success");
+      setFormData(INITIAL_FORM);
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  const fieldSx = {
+    "& .MuiOutlinedInput-root": {
+      borderRadius: 2,
+      bgcolor: isDark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.02)",
+      "& fieldset": { borderColor: isDark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.15)" },
+      "&:hover fieldset": { borderColor: isDark ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.3)" },
+    },
+    "& .MuiInputLabel-root": { color: isDark ? "#94a3b8" : "#64748b" },
+    "& .MuiInputBase-input": { color: isDark ? "#f1f5f9" : "#0f172a" },
   };
 
   return (
     <>
-    <Navbar isHome={false}/>
-    <div className="min-h-screen flex items-center justify-center px-4 my-16">
-      <div className="bg-white rounded shadow-xl p-8 max-w-3xl w-full">
-        <h1 className="text-3xl font-bold text-center mb-6 text-gray-800 flex items-center justify-center gap-2">
-          <EmailIcon sx={{ fontSize: 32, color: '#1a56db' }} /> Envoyez-nous un mail
-        </h1>
-        {status === "success" && (
-          <div className="flex items-center gap-2 text-green-600 mb-4 justify-center">
-            <CheckCircleIcon /> Merci ! Votre message a bien été envoyé.
-          </div>
-        )}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Nom */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Nom</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary outline-none"
-            />
-          </div>
+      <Navbar isHome={false} />
+      <Box
+        sx={{
+          minHeight: "100vh",
+          pt: { xs: 10, md: 12 },
+          bgcolor: isDark ? "#0f172a" : "#f8fafc",
+          transition: "background-color 0.3s ease",
+        }}
+      >
+        {/* Header */}
+        <Box
+          sx={{
+            py: { xs: 6, md: 8 },
+            background: isDark
+              ? "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)"
+              : "linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #f0f9ff 100%)",
+            textAlign: "center",
+            transition: "background 0.3s ease",
+          }}
+        >
+          <Container maxWidth="md">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Chip
+                icon={<EmailIcon sx={{ fontSize: 18, color: isDark ? "#60a5fa" : "#1a56db" }} />}
+                label="Formulaire de contact"
+                sx={{
+                  mb: 3,
+                  bgcolor: isDark ? "rgba(59,130,246,0.2)" : "rgba(26,86,219,0.1)",
+                  color: isDark ? "#60a5fa" : "#1a56db",
+                  fontWeight: 600,
+                  fontSize: "0.875rem",
+                  py: 2.5,
+                  px: 1,
+                  borderRadius: 3,
+                }}
+              />
+              <Typography
+                variant="h2"
+                sx={{
+                  fontWeight: 800,
+                  fontSize: { xs: "2rem", md: "2.75rem" },
+                  color: isDark ? "#f1f5f9" : "#0f172a",
+                  mb: 2,
+                  letterSpacing: "-0.02em",
+                  transition: "color 0.3s ease",
+                }}
+              >
+                Envoyez-nous un{" "}
+                <Box
+                  component="span"
+                  sx={{
+                    background: "linear-gradient(135deg, #1a56db 0%, #0891b2 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  message
+                </Box>
+              </Typography>
+              <Typography
+                sx={{
+                  color: isDark ? "#94a3b8" : "#6b7280",
+                  fontSize: { xs: "1rem", md: "1.125rem" },
+                  lineHeight: 1.8,
+                }}
+              >
+                Décrivez votre projet et nous vous répondons sous 24h.
+              </Typography>
+            </motion.div>
+          </Container>
+        </Box>
 
-          {/* Email */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary outline-none"
-            />
-          </div>
-
-          {/* Message */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Message</label>
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              rows="5"
-              required
-              className="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-pink-400 outline-none"
-            ></textarea>
-          </div>
-
-          {/* Bouton */}
-          <button
-            type="submit"
-            className="w-full gradent text-white py-3 rounded font-semibold hover:opacity-90 transition"
+        {/* Formulaire */}
+        <Container maxWidth="sm" sx={{ py: { xs: 6, md: 8 } }}>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Envoyer
-          </button>
-        </form>
+            <Paper
+              elevation={0}
+              sx={{
+                p: { xs: 3, sm: 5 },
+                borderRadius: 4,
+                bgcolor: isDark ? "#1e293b" : "#ffffff",
+                border: "1px solid",
+                borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.07)",
+                boxShadow: isDark
+                  ? "0 4px 24px rgba(0,0,0,0.4)"
+                  : "0 4px 24px rgba(0,0,0,0.06)",
+                transition: "background-color 0.3s ease, border-color 0.3s ease",
+              }}
+            >
+              {status === "success" ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <Box sx={{ textAlign: "center", py: 4 }}>
+                    <CheckCircleOutlineIcon
+                      sx={{ fontSize: 64, color: "#22c55e", mb: 2 }}
+                    />
+                    <Typography
+                      variant="h5"
+                      sx={{
+                        fontWeight: 700,
+                        color: isDark ? "#f1f5f9" : "#0f172a",
+                        mb: 1.5,
+                      }}
+                    >
+                      Message envoyé !
+                    </Typography>
+                    <Typography sx={{ color: isDark ? "#94a3b8" : "#6b7280", mb: 3 }}>
+                      Merci pour votre message. Nous vous répondrons dans les plus brefs délais.
+                    </Typography>
+                    <Button
+                      variant="outlined"
+                      onClick={() => setStatus("idle")}
+                      sx={{
+                        borderRadius: 2,
+                        textTransform: "none",
+                        fontWeight: 600,
+                        borderColor: isDark ? "rgba(255,255,255,0.2)" : undefined,
+                        color: isDark ? "#94a3b8" : undefined,
+                      }}
+                    >
+                      Envoyer un autre message
+                    </Button>
+                  </Box>
+                </motion.div>
+              ) : (
+                <Box component="form" onSubmit={handleSubmit} noValidate>
+                  {status === "error" && (
+                    <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>
+                      Une erreur est survenue. Vérifiez votre connexion et réessayez.
+                    </Alert>
+                  )}
 
-        {/* Statut d'envoi */}
-        {status && (
-          <p className="mt-4 text-center text-green-600 font-medium">{status}</p>
-        )}
-      </div>
-    </div>
-    <Footer />
+                  <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                    <TextField
+                      label="Nom complet"
+                      name="from_name"
+                      value={formData.from_name}
+                      onChange={handleChange}
+                      error={!!errors.from_name}
+                      helperText={errors.from_name}
+                      fullWidth
+                      required
+                      sx={fieldSx}
+                    />
+                    <TextField
+                      label="Adresse email"
+                      name="from_email"
+                      type="email"
+                      value={formData.from_email}
+                      onChange={handleChange}
+                      error={!!errors.from_email}
+                      helperText={errors.from_email}
+                      fullWidth
+                      required
+                      sx={fieldSx}
+                    />
+                    <TextField
+                      label="Votre message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      error={!!errors.message}
+                      helperText={errors.message || `${formData.message.length} / 20 min`}
+                      fullWidth
+                      required
+                      multiline
+                      rows={5}
+                      sx={fieldSx}
+                    />
+
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      size="large"
+                      disabled={status === "loading"}
+                      endIcon={
+                        status === "loading" ? (
+                          <CircularProgress size={20} color="inherit" />
+                        ) : (
+                          <SendIcon />
+                        )
+                      }
+                      sx={{
+                        background: "linear-gradient(135deg, #1a56db 0%, #0891b2 100%)",
+                        borderRadius: 2,
+                        py: 1.75,
+                        fontWeight: 600,
+                        fontSize: "1rem",
+                        textTransform: "none",
+                        boxShadow: "0 4px 14px rgba(26,86,219,0.3)",
+                        "&:hover": {
+                          background: "linear-gradient(135deg, #1e40af 0%, #0e7490 100%)",
+                          transform: "translateY(-2px)",
+                          boxShadow: "0 6px 20px rgba(26,86,219,0.4)",
+                        },
+                        "&:disabled": {
+                          background: isDark ? "#334155" : "#e2e8f0",
+                          color: isDark ? "#64748b" : "#94a3b8",
+                        },
+                        transition: "all 0.2s ease",
+                      }}
+                    >
+                      {status === "loading" ? "Envoi en cours…" : "Envoyer le message"}
+                    </Button>
+                  </Box>
+                </Box>
+              )}
+            </Paper>
+          </motion.div>
+        </Container>
+      </Box>
+      <Footer />
     </>
   );
 }

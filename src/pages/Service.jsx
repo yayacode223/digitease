@@ -16,12 +16,15 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import CodeIcon from '@mui/icons-material/Code';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import VerifiedIcon from '@mui/icons-material/Verified';
+import HomeIcon from '@mui/icons-material/Home';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { useTheme } from '../contexts/ThemeContext';
 
 const processSteps = [
@@ -77,6 +80,44 @@ export default function Service() {
         }}
       >
         <Container maxWidth="lg">
+          {/* Breadcrumb */}
+          <Breadcrumbs
+            separator={<NavigateNextIcon sx={{ fontSize: 16, color: isDark ? '#475569' : '#94a3b8' }} />}
+            sx={{ mb: { xs: 4, md: 6 } }}
+          >
+            <Box
+              component="button"
+              onClick={() => navigate('/')}
+              sx={{
+                display: 'flex', alignItems: 'center', gap: 0.5,
+                border: 'none', background: 'none', cursor: 'pointer', p: 0,
+                color: isDark ? '#64748b' : '#94a3b8',
+                fontSize: '0.875rem', fontWeight: 500,
+                '&:hover': { color: '#2563eb' },
+                transition: 'color 0.2s ease',
+              }}
+            >
+              <HomeIcon sx={{ fontSize: 15 }} />
+              Accueil
+            </Box>
+            <Box
+              component="button"
+              onClick={() => { navigate('/'); setTimeout(() => { document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}
+              sx={{
+                border: 'none', background: 'none', cursor: 'pointer', p: 0,
+                color: isDark ? '#64748b' : '#94a3b8',
+                fontSize: '0.875rem', fontWeight: 500,
+                '&:hover': { color: '#2563eb' },
+                transition: 'color 0.2s ease',
+              }}
+            >
+              Services
+            </Box>
+            <Typography sx={{ color: isDark ? '#e2e8f0' : '#0f172a', fontSize: '0.875rem', fontWeight: 600 }}>
+              {service.title}
+            </Typography>
+          </Breadcrumbs>
+
           <Grid container spacing={6} alignItems="center">
             <Grid size={{ xs: 12, md: 6 }}>
               <motion.div
@@ -478,6 +519,130 @@ export default function Service() {
           </motion.div>
         </Container>
       </Box>
+
+      {/* Autres services */}
+      {services.filter(s => s.id !== service.id).length > 0 && (
+        <Box
+          sx={{
+            py: { xs: 6, md: 10 },
+            bgcolor: isDark ? '#1e293b' : '#f8fafc',
+            transition: 'background-color 0.3s ease',
+          }}
+        >
+          <Container maxWidth="lg">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <Box sx={{ textAlign: 'center', mb: 5 }}>
+                <Typography
+                  variant="h3"
+                  sx={{
+                    fontWeight: 700,
+                    fontSize: { xs: '1.5rem', md: '2rem' },
+                    color: isDark ? '#f1f5f9' : '#0f172a',
+                    mb: 1,
+                    transition: 'color 0.3s ease',
+                  }}
+                >
+                  Nos autres{' '}
+                  <Box
+                    component="span"
+                    sx={{
+                      background: 'linear-gradient(135deg, #1a56db 0%, #0891b2 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }}
+                  >
+                    services
+                  </Box>
+                </Typography>
+                <Typography sx={{ color: isDark ? '#64748b' : '#94a3b8', fontSize: '0.95rem' }}>
+                  Découvrez nos autres expertises
+                </Typography>
+              </Box>
+
+              <Grid container spacing={3} justifyContent="center">
+                {services
+                  .filter(s => s.id !== service.id)
+                  .map((other, index) => (
+                    <Grid size={{ xs: 12, sm: 6 }} key={other.id}>
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: index * 0.1 }}
+                        style={{ height: '100%' }}
+                      >
+                        <Card
+                          sx={{
+                            height: '100%',
+                            borderRadius: 3,
+                            bgcolor: isDark ? '#0f172a' : '#ffffff',
+                            border: '1px solid',
+                            borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)',
+                            boxShadow: 'none',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                            '&:hover': {
+                              transform: 'translateY(-6px)',
+                              borderColor: '#2563eb',
+                              boxShadow: isDark
+                                ? '0 16px 32px -8px rgba(37,99,235,0.25)'
+                                : '0 16px 32px -8px rgba(37,99,235,0.15)',
+                            },
+                          }}
+                          onClick={() => navigate(`/services/${other.id}`)}
+                        >
+                          <CardContent sx={{ p: { xs: 3, sm: 4 } }}>
+                            <Typography
+                              variant="h6"
+                              sx={{
+                                fontWeight: 700,
+                                fontSize: { xs: '1rem', sm: '1.125rem' },
+                                color: isDark ? '#f1f5f9' : '#0f172a',
+                                mb: 1.5,
+                                transition: 'color 0.3s ease',
+                              }}
+                            >
+                              {other.title}
+                            </Typography>
+                            <Typography
+                              sx={{
+                                color: isDark ? '#94a3b8' : '#6b7280',
+                                fontSize: '0.9rem',
+                                lineHeight: 1.6,
+                                mb: 2.5,
+                              }}
+                            >
+                              {other.description.length > 120
+                                ? `${other.description.slice(0, 120)}…`
+                                : other.description}
+                            </Typography>
+                            <Box
+                              sx={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: 0.5,
+                                color: '#2563eb',
+                                fontSize: '0.875rem',
+                                fontWeight: 600,
+                              }}
+                            >
+                              En savoir plus <ArrowForwardIcon sx={{ fontSize: 16 }} />
+                            </Box>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+                    </Grid>
+                  ))}
+              </Grid>
+            </motion.div>
+          </Container>
+        </Box>
+      )}
 
       {/* CTA Section */}
       <Box

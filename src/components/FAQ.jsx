@@ -144,19 +144,20 @@ const PricingContent = ({ data, isDark }) => (
   </Stack>
 );
 
+const TextContent = ({ text, isDark }) => (
+  <Typography sx={{ color: isDark ? '#94a3b8' : '#475569', fontSize: '0.875rem', lineHeight: 1.75 }}>
+    {Array.isArray(text) ? text.join(' ') : text}
+  </Typography>
+);
+
 const renderContent = (item, isDark) => {
   switch (item.type) {
-    case 'list': return <ListContent items={item.reponse} isDark={isDark} />;
-    case 'steps': return <StepsContent items={item.reponse} isDark={isDark} />;
+    case 'list':    return <ListContent items={item.reponse} isDark={isDark} />;
+    case 'steps':   return <StepsContent items={item.reponse} isDark={isDark} />;
     case 'options': return <OptionsContent items={item.reponse} isDark={isDark} />;
-    case 'check': return <CheckContent items={item.reponse} isDark={isDark} />;
+    case 'check':   return <CheckContent items={item.reponse} isDark={isDark} />;
     case 'pricing': return <PricingContent data={item.reponse} isDark={isDark} />;
-    default:
-      return (
-        <Typography sx={{ color: isDark ? '#64748b' : '#64748b', fontSize: '0.875rem', lineHeight: 1.75 }}>
-          {item.reponse}
-        </Typography>
-      );
+    default:        return <TextContent text={item.reponse} isDark={isDark} />;
   }
 };
 

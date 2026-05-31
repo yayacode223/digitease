@@ -235,17 +235,17 @@ const Hero = () => {
 
               {/* Tech stack pills */}
               <motion.div variants={itemVariants}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexWrap: 'wrap' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                   <Typography sx={{
                     fontSize: '0.75rem',
                     fontWeight: 500,
                     color: isDark ? '#475569' : '#94a3b8',
                     textTransform: 'uppercase',
                     letterSpacing: '0.07em',
-                    flexShrink: 0,
                   }}>
-                    Stack
+                    Technologies maîtrisées
                   </Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexWrap: 'wrap' }}>
                   {techStack.map((tech, i) => (
                     <Box
                       key={i}
@@ -275,6 +275,7 @@ const Hero = () => {
                       </Typography>
                     </Box>
                   ))}
+                  </Box>
                 </Box>
               </motion.div>
 

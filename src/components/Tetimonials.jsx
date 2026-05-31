@@ -21,12 +21,10 @@ const Testimonials = () => {
       component="section"
       sx={{
         py: { xs: 6, sm: 8, md: 12 },
-        background: isDark 
-          ? 'linear-gradient(180deg, #1e293b 0%, #0f172a 100%)'
-          : 'linear-gradient(180deg, #111827 0%, #1f2937 100%)',
+        bgcolor: isDark ? '#0f172a' : '#f1f5f9',
         position: 'relative',
         overflow: 'hidden',
-        transition: 'background 0.3s ease',
+        transition: 'background-color 0.3s ease',
       }}
     >
       {/* Background pattern */}
@@ -37,8 +35,8 @@ const Testimonials = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          opacity: 0.05,
-          background: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+          opacity: isDark ? 0.05 : 0.03,
+          background: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
         }}
       />
 
@@ -69,8 +67,9 @@ const Testimonials = () => {
                 fontFamily: 'Poppins, sans-serif',
                 fontWeight: 700,
                 fontSize: { xs: '1.75rem', sm: '2rem', md: '2.75rem' },
-                color: '#ffffff',
+                color: isDark ? '#f1f5f9' : '#0f172a',
                 mb: 2,
+                transition: 'color 0.3s ease',
               }}
             >
               Ce que disent{' '}
@@ -88,11 +87,12 @@ const Testimonials = () => {
             <Typography
               sx={{
                 fontSize: { xs: '0.9rem', sm: '1rem', md: '1.125rem' },
-                color: 'rgba(255,255,255,0.7)',
+                color: isDark ? 'rgba(255,255,255,0.7)' : '#6b7280',
                 maxWidth: '500px',
                 mx: 'auto',
                 lineHeight: 1.7,
                 px: { xs: 2, sm: 0 },
+                transition: 'color 0.3s ease',
               }}
             >
               Des histoires vraies de ceux qui nous ont fait confiance
@@ -114,14 +114,18 @@ const Testimonials = () => {
                     sx={{
                       height: '100%',
                       borderRadius: 3,
-                      bgcolor: isDark ? 'rgba(30,41,59,0.8)' : 'rgba(255,255,255,0.05)',
-                      backdropFilter: 'blur(10px)',
+                      bgcolor: isDark ? '#1e293b' : '#ffffff',
                       border: '1px solid',
-                      borderColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.1)',
+                      borderColor: isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)',
+                      boxShadow: isDark
+                        ? '0 4px 6px rgba(0,0,0,0.3)'
+                        : '0 4px 6px rgba(0,0,0,0.05)',
                       transition: 'all 0.3s ease',
                       '&:hover': {
                         transform: 'translateY(-8px)',
-                        bgcolor: isDark ? 'rgba(30,41,59,0.95)' : 'rgba(255,255,255,0.08)',
+                        boxShadow: isDark
+                          ? '0 16px 30px rgba(0,0,0,0.4)'
+                          : '0 16px 30px rgba(245,158,11,0.12)',
                         borderColor: 'rgba(245, 158, 11, 0.3)',
                       }
                     }}
@@ -135,18 +139,19 @@ const Testimonials = () => {
                       {/* Testimonial text */}
                       <Typography
                         sx={{
-                          color: 'rgba(255,255,255,0.9)',
+                          color: isDark ? 'rgba(255,255,255,0.85)' : '#374151',
                           fontSize: { xs: '0.9rem', sm: '1rem' },
                           lineHeight: 1.8,
                           mb: 4,
                           flexGrow: 1,
+                          transition: 'color 0.3s ease',
                         }}
                       >
                         {item.text}
                       </Typography>
 
                       {/* Author info */}
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, pt: 3, borderTop: '1px solid rgba(255,255,255,0.1)', flexWrap: 'wrap' }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, pt: 3, borderTop: '1px solid', borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)', flexWrap: 'wrap' }}>
                         <Avatar
                           src={item.image}
                           alt={item.name}
@@ -160,17 +165,19 @@ const Testimonials = () => {
                           <Typography
                             sx={{
                               fontWeight: 600,
-                              color: '#ffffff',
+                              color: isDark ? '#f1f5f9' : '#111827',
                               fontSize: { xs: '0.9rem', sm: '1rem' },
                               mb: 0.25,
+                              transition: 'color 0.3s ease',
                             }}
                           >
                             {item.name}
                           </Typography>
                           <Typography
                             sx={{
-                              color: 'rgba(255,255,255,0.6)',
+                              color: isDark ? 'rgba(255,255,255,0.55)' : '#6b7280',
                               fontSize: { xs: '0.8rem', sm: '0.875rem' },
+                              transition: 'color 0.3s ease',
                             }}
                           >
                             {item.title}

@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { Navbar, Hero, Services, Equipes, FAQ } from '../components'
+import { Navbar, Hero, Services, Equipes, FAQ, Temoignages } from '../components'
 import { Footer } from '../components'
 import SEOHead from '../components/SEOHead'
 import { LoadingSpinner } from '../components/ui/FeedbackComponents'
@@ -24,6 +24,7 @@ const Home = () => {
         <Suspense fallback={<LoadingSpinner message="Chargement..." />}>
           <Hero />
           <Services />
+          <Temoignages />
           <Equipes />
           <FAQ />
         </Suspense>
