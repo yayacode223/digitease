@@ -55,12 +55,18 @@ export default function Mail() {
       setErrors(validationErrors);
       return;
     }
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      console.error("EmailJS: variables d'environnement manquantes (VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, VITE_EMAILJS_PUBLIC_KEY)");
+      setStatus("error");
+      return;
+    }
     setStatus("loading");
     try {
-      await emailjs.send(SERVICE_ID, TEMPLATE_ID, formData, PUBLIC_KEY);
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, formData, { publicKey: PUBLIC_KEY });
       setStatus("success");
       setFormData(INITIAL_FORM);
-    } catch {
+    } catch (err) {
+      console.error("EmailJS error:", err?.text ?? err);
       setStatus("error");
     }
   };
