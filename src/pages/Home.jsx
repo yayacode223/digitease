@@ -24,7 +24,7 @@ const Home = () => {
         <Suspense fallback={<LoadingSpinner message="Chargement..." />}>
           <Hero />
           <Services />
-          <Temoignages />
+          {/* <Temoignages /> */}
           <Equipes />
           <FAQ />
         </Suspense>
