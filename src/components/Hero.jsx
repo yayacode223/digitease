@@ -302,7 +302,8 @@ const Hero = () => {
                     src={hero_img}
                     alt="DigitEase - Transformation digitale"
                     style={{ width: '100%', height: 'auto', display: 'block' }}
-                    loading="lazy"
+                    loading="eager"
+                    fetchpriority="high"
                   />
                 </Box>
 
@@ -331,19 +332,25 @@ const Hero = () => {
                       zIndex: 2,
                     }}
                   >
-                    <Box
-                      sx={{
-                        width: 34,
-                        height: 34,
-                        borderRadius: '7px',
-                        background: 'linear-gradient(135deg, #2563eb 0%, #0891b2 100%)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0,
-                      }}
-                    >
-                      <FaCheckCircle size={15} color="#ffffff" />
+                    <Box sx={{ position: 'relative', flexShrink: 0 }}>
+                      <Box sx={{
+                        width: 10, height: 10,
+                        borderRadius: '50%',
+                        bgcolor: '#22c55e',
+                        position: 'relative',
+                        '&::after': {
+                          content: '""',
+                          position: 'absolute',
+                          inset: -3,
+                          borderRadius: '50%',
+                          bgcolor: 'rgba(34,197,94,0.25)',
+                          animation: 'ping 1.8s cubic-bezier(0,0,0.2,1) infinite',
+                        },
+                        '@keyframes ping': {
+                          '0%': { transform: 'scale(1)', opacity: 0.8 },
+                          '100%': { transform: 'scale(2.2)', opacity: 0 },
+                        },
+                      }} />
                     </Box>
                     <Box>
                       <Typography sx={{
@@ -352,14 +359,14 @@ const Hero = () => {
                         color: isDark ? '#f1f5f9' : '#0f172a',
                         lineHeight: 1.25,
                       }}>
-                        Expertise certifiée
+                        Disponible
                       </Typography>
                       <Typography sx={{
                         fontSize: '0.72rem',
                         color: isDark ? '#475569' : '#94a3b8',
                         mt: 0.25,
                       }}>
-                        Web · IA · Cloud
+                        Réponse sous 24h
                       </Typography>
                     </Box>
                   </Box>

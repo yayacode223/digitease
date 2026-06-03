@@ -22,7 +22,7 @@ const equipes = [
         description: "Développeur full stack spécialisé dans les applications web et mobiles, avec une expertise en design UI/UX certifiée par Microsoft, assurant des interfaces utilisateurs intuitives et performantes.",
         network: {
             facebook: "https://facebook.com/sidiki.dao.7",
-            linkedin: "https://www.linkedin.com/in/sidiki-dao-b75bb539a/",
+            linkedin: "https://www.linkedin.com/in/sidiki-dogotu-dao-b75bb539a",
             email: "sidiki@mail.com"
         }
     },

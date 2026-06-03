@@ -1,6 +1,6 @@
 import React from 'react';
 import { MdEmail } from 'react-icons/md';
-import { FaFacebook, FaLinkedin } from 'react-icons/fa';
+import { FaLinkedin } from 'react-icons/fa';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -106,28 +106,6 @@ const EquipeCard = ({ nom, poste, image, description, network }) => {
 
         {/* Social links */}
         <Box sx={{ display: 'flex', gap: 1, mt: 'auto' }}>
-          {network?.facebook && (
-            <IconButton
-              component="a"
-              href={network.facebook}
-              target="_blank"
-              rel="noopener"
-              aria-label="facebook"
-              size="small"
-              sx={{
-                bgcolor: isDark ? 'rgba(255,255,255,0.05)' : '#f8fafc',
-                border: '1px solid',
-                borderColor: isDark ? 'rgba(255,255,255,0.07)' : '#e2e8f0',
-                color: '#1877f2',
-                '&:hover': {
-                  bgcolor: 'rgba(24,119,242,0.08)',
-                  borderColor: 'rgba(24,119,242,0.3)',
-                },
-              }}
-            >
-              <FaFacebook size={15} />
-            </IconButton>
-          )}
           {network?.linkedin && (
             <IconButton
               component="a"

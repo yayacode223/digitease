@@ -115,7 +115,6 @@ const Services = () => {
                 >
                   <ServiceCard
                     title={item.title}
-                    description={item.description}
                     id={item.id}
                     specifites={item.specifités}
                     icon={item.icon}

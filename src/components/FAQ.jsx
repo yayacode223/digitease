@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { questions } from './index';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -13,6 +14,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
+import Button from '@mui/material/Button';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -20,6 +22,7 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import LinkIcon from '@mui/icons-material/Link';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { motion } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
 
@@ -163,6 +166,7 @@ const renderContent = (item, isDark) => {
 
 const FAQ = () => {
   const { isDark } = useTheme();
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -256,6 +260,7 @@ const FAQ = () => {
           {/* Accordion list */}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
             {questions.map((item, index) => (
+
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 16 }}
@@ -308,6 +313,63 @@ const FAQ = () => {
                 </Accordion>
               </motion.div>
             ))}
+          </Box>
+
+          {/* CTA de sortie */}
+          <Box
+            sx={{
+              mt: 6,
+              pt: 5,
+              borderTop: '1px solid',
+              borderColor: isDark ? 'rgba(255,255,255,0.07)' : '#e2e8f0',
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 3,
+            }}
+          >
+            <Box>
+              <Typography sx={{
+                fontWeight: 700,
+                fontSize: { xs: '1rem', md: '1.0625rem' },
+                color: isDark ? '#f1f5f9' : '#0f172a',
+                mb: 0.5,
+              }}>
+                Vous avez une question spécifique ?
+              </Typography>
+              <Typography sx={{
+                fontSize: '0.875rem',
+                color: isDark ? '#64748b' : '#94a3b8',
+              }}>
+                Notre équipe vous répond sous 24h.
+              </Typography>
+            </Box>
+            <Button
+              variant="contained"
+              endIcon={<ArrowForwardIcon />}
+              onClick={() => navigate('/contact')}
+              sx={{
+                background: 'linear-gradient(135deg, #1a56db 0%, #0891b2 100%)',
+                borderRadius: '10px',
+                px: 3.5,
+                py: 1.5,
+                fontWeight: 600,
+                fontSize: '0.9rem',
+                textTransform: 'none',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+                boxShadow: '0 4px 14px rgba(26,86,219,0.28)',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #1e40af 0%, #0e7490 100%)',
+                  transform: 'translateY(-1px)',
+                  boxShadow: '0 6px 20px rgba(26,86,219,0.4)',
+                },
+                transition: 'all 0.2s ease',
+              }}
+            >
+              Nous contacter
+            </Button>
           </Box>
         </motion.div>
       </Container>
