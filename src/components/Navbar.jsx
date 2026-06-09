@@ -78,6 +78,24 @@ const Navbar = ({ isHome }) => {
   const scrolledBg = isDark ? 'rgba(15, 23, 42, 0.97)' : 'rgba(255, 255, 255, 0.97)';
   const transparentBg = 'transparent';
 
+  // Le fond derrière la navbar est-il sombre ? (pilote le traitement clair/foncé)
+  // - scrollée : fond plein blanc (clair) ou navy (sombre) selon le thème
+  // - en haut  : le Home a un hero sombre ; les autres pages suivent le thème
+  const surfaceIsDark = scrolled ? isDark : (isHome || isDark);
+  // Onglets superposés au hero sombre du Home (navbar transparente)
+  const overHero = isHome && !scrolled;
+
+  // Onglets : bleu foncé sur fond clair, blanc sur le hero sombre, bleu clair en mode sombre
+  const linkColor = overHero ? '#ffffff' : (isDark ? '#93c5fd' : '#1e40af');
+  const linkActiveColor = overHero ? '#ffffff' : (isDark ? '#60a5fa' : '#1d4ed8');
+  const linkHoverColor = overHero ? '#ffffff' : (isDark ? '#bfdbfe' : '#1d4ed8');
+  const underlineColor = overHero ? '#60a5fa' : (isDark ? '#60a5fa' : '#1d4ed8');
+
+  // Icônes (thème, menu) : claires sur fond sombre, foncées sur fond clair
+  const iconColor = surfaceIsDark ? 'rgba(255,255,255,0.88)' : (isDark ? '#94a3b8' : '#64748b');
+  const iconHoverColor = surfaceIsDark ? '#ffffff' : (isDark ? '#e2e8f0' : '#0f172a');
+  const iconHoverBg = surfaceIsDark ? 'rgba(255,255,255,0.14)' : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)');
+
   return (
     <AppBar
       position="fixed"
@@ -103,16 +121,27 @@ const Navbar = ({ isHome }) => {
           justifyContent: 'space-between',
         }}
       >
-        {/* Logo */}
+        {/* Logo — pastille claire sur fond sombre pour rester bien visible */}
         <Box
           onClick={() => navigate('/')}
-          sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', flexShrink: 0 }}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            cursor: 'pointer',
+            flexShrink: 0,
+            px: surfaceIsDark ? 1.25 : 0,
+            py: surfaceIsDark ? 0.5 : 0,
+            borderRadius: '10px',
+            bgcolor: surfaceIsDark ? 'rgba(255,255,255,0.94)' : 'transparent',
+            boxShadow: surfaceIsDark ? '0 2px 12px rgba(0,0,0,0.2)' : 'none',
+            transition: 'background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease',
+          }}
         >
           <Box
             component="img"
             src={isDark ? digiteaseLogoDark : digiteaseLogo}
             alt="DigitEase"
-            sx={{ height: { xs: 34, sm: 40, md: 44 }, width: 'auto', objectFit: 'contain' }}
+            sx={{ height: { xs: 36, sm: 42, md: 48 }, width: 'auto', objectFit: 'contain', display: 'block' }}
           />
         </Box>
 
@@ -137,13 +166,10 @@ const Navbar = ({ isHome }) => {
                   href={link.href !== '#' ? link.href : undefined}
                   sx={{
                     textTransform: 'none',
-                    fontWeight: isActive ? 600 : 500,
+                    fontWeight: isActive ? 700 : 600,
                     fontSize: '0.9375rem',
-                    color: isActive
-                      ? '#2563eb'
-                      : isDark
-                        ? (scrolled ? '#cbd5e1' : '#e2e8f0')
-                        : (scrolled ? '#475569' : '#374151'),
+                    color: isActive ? linkActiveColor : linkColor,
+                    textShadow: overHero ? '0 1px 8px rgba(0,0,0,0.4)' : 'none',
                     px: 2,
                     py: 1,
                     borderRadius: '6px',
@@ -152,7 +178,7 @@ const Navbar = ({ isHome }) => {
                     transition: 'color 0.2s ease',
                     '&:hover': {
                       bgcolor: 'transparent',
-                      color: '#2563eb',
+                      color: linkHoverColor,
                       '&::after': { transform: 'scaleX(1)' },
                     },
                     '&::after': {
@@ -162,7 +188,7 @@ const Navbar = ({ isHome }) => {
                       left: 8,
                       right: 8,
                       height: '2px',
-                      bgcolor: '#2563eb',
+                      bgcolor: underlineColor,
                       borderRadius: '1px',
                       transform: isActive ? 'scaleX(1)' : 'scaleX(0)',
                       transformOrigin: 'center',
@@ -185,10 +211,10 @@ const Navbar = ({ isHome }) => {
               onClick={toggleTheme}
               size="small"
               sx={{
-                color: isDark ? '#94a3b8' : '#64748b',
+                color: iconColor,
                 '&:hover': {
-                  bgcolor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)',
-                  color: isDark ? '#e2e8f0' : '#0f172a',
+                  bgcolor: iconHoverBg,
+                  color: iconHoverColor,
                 },
               }}
             >
@@ -229,8 +255,8 @@ const Navbar = ({ isHome }) => {
               onClick={() => setShowMenu(true)}
               sx={{
                 display: { xs: 'flex', md: 'none' },
-                color: isDark ? '#cbd5e1' : '#374151',
-                '&:hover': { bgcolor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)' },
+                color: surfaceIsDark ? '#ffffff' : (isDark ? '#cbd5e1' : '#374151'),
+                '&:hover': { bgcolor: iconHoverBg },
               }}
             >
               <MenuIcon />
@@ -301,9 +327,11 @@ const Navbar = ({ isHome }) => {
                     <ListItemText
                       primary={link.label}
                       primaryTypographyProps={{
-                        fontWeight: isActive ? 600 : 500,
+                        fontWeight: isActive ? 700 : 600,
                         fontSize: '0.9375rem',
-                        color: isActive ? '#2563eb' : (isDark ? '#cbd5e1' : '#374151'),
+                        color: isActive
+                          ? (isDark ? '#60a5fa' : '#1d4ed8')
+                          : (isDark ? '#93c5fd' : '#1e40af'),
                         sx: { transition: 'color 0.15s ease' },
                       }}
                     />

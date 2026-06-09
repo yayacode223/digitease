@@ -168,7 +168,7 @@ const Hero = () => {
               </motion.div>
 
               {/* Subtitle */}
-              <motion.div variants={itemVariants}>
+              {/* <motion.div variants={itemVariants}>
                 <Typography
                   sx={{
                     fontSize: { xs: '1rem', md: '1.075rem' },
@@ -182,7 +182,7 @@ const Hero = () => {
                   Nous transformons vos idées en solutions digitales performantes.
                   Web, IA et Cloud — expertise complète pour propulser votre entreprise.
                 </Typography>
-              </motion.div>
+              </motion.div> */}
 
               {/* CTA buttons */}
               <motion.div variants={itemVariants}>
