@@ -278,7 +278,7 @@ const FAQ = () => {
                   />
                   <Box
                     component="img"
-                    src="/faq/faq.webp"
+                    src="/faq/faq.png"
                     alt="Une question ? DigitEase vous répond"
                     loading="lazy"
                     sx={{
