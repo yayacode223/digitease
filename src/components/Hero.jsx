@@ -58,7 +58,7 @@ const Hero = () => {
       {/* Image de fond — pleine largeur, visible */}
       <Box
         component="img"
-        src="/heros/background.png"
+        src="/heros/background.webp"
         alt="DigitEase — accompagnement et transformation digitale"
         loading="eager"
         fetchpriority="high"

@@ -1,4 +1,4 @@
-import { ai, dev } from "../assets";
+import { ai, dev, cloud } from "../assets";
 
 // Icons will be handled in ServiceCard component based on service id
 const services=[
@@ -76,7 +76,7 @@ const services=[
             "Automatisation via CI/CD & infrastructure",
             "Maintenance & support technique continue",
         ],
-        image:"https://i.pinimg.com/736x/1f/cc/ea/1fcceab4efc82ab112fcc70af2267ab7.jpg",
+        image:cloud,
         engagements:[
             {
                 title:"Scalabilité",

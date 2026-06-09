@@ -1,15 +1,16 @@
-import logo from "./logo.png"
-import hero_img from "./digitalize.jpg"
-import sidiki from "./sidiki.jpg"
-import adama from "./adama.png"
-import yahya from "./yahya.png"
-import dev from "./webandmobile.jpg"
-import ai from "./ai-chip-circuit-board.jpg"
-import contact from "./contact.jpg"
+import logo from "./logo.webp"
+import hero_img from "./digitalize.webp"
+import sidiki from "./sidiki.webp"
+import adama from "./adama.webp"
+import yahya from "./yahya.webp"
+import dev from "./webandmobile.webp"
+import ai from "./ai-chip.webp"
+import cloud from "./cloud.webp"
+import contact from "./contact.webp"
 import feat from "./star.svg"
-import contacto from './contacto.jpg'
-import digiteaseLogo from './DigitEase.png'
-import digiteaseLogoDark from './DigitEase-dark.png'
+import contacto from './contacto.webp'
+import digiteaseLogo from './DigitEase.webp'
+import digiteaseLogoDark from './DigitEase-dark.webp'
 
 export {
 logo,
@@ -19,6 +20,7 @@ adama,
 yahya,
 dev,
 ai,
+cloud,
 feat,
 contact,
 contacto,

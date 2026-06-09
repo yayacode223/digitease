@@ -118,6 +118,7 @@ const Services = () => {
                     id={item.id}
                     specifites={item.specifités}
                     icon={item.icon}
+                    image={item.image}
                   />
                 </motion.div>
               </Grid>
