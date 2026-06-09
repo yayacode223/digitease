@@ -29,19 +29,22 @@ import { useTheme } from '../contexts/ThemeContext';
 
 const processSteps = [
   {
-    icon: <AnalyticsIcon sx={{ fontSize: 28 }} />,
+    icon: <AnalyticsIcon sx={{ fontSize: 24 }} />,
     title: '1. Analyse',
     description: 'Discussion, compréhension des besoins et définition du cahier des charges.',
+    image: '/services/processus/analyse.webp',
   },
   {
-    icon: <CodeIcon sx={{ fontSize: 28 }} />,
+    icon: <CodeIcon sx={{ fontSize: 24 }} />,
     title: '2. Développement',
     description: 'Conception et réalisation de votre solution web ou mobile.',
+    image: '/services/processus/developpement.webp',
   },
   {
-    icon: <RocketLaunchIcon sx={{ fontSize: 28 }} />,
+    icon: <RocketLaunchIcon sx={{ fontSize: 24 }} />,
     title: '3. Livraison & Suivi',
     description: 'Mise en ligne, accompagnement et évolutions futures.',
+    image: '/services/processus/livraison.webp',
   },
 ];
 
@@ -346,31 +349,77 @@ export default function Service() {
                       <Card
                         sx={{
                           height: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
                           borderRadius: 3,
+                          overflow: 'hidden',
                           bgcolor: isDark ? '#1e293b' : '#ffffff',
                           border: '1px solid',
                           borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)',
                           transition: 'all 0.3s ease',
                           '&:hover': {
                             transform: 'translateY(-8px)',
-                            boxShadow: isDark 
+                            boxShadow: isDark
                               ? '0 20px 40px -15px rgba(59, 130, 246, 0.3)'
                               : '0 20px 40px -15px rgba(26, 86, 219, 0.2)',
                             borderColor: isDark ? 'rgba(59, 130, 246, 0.4)' : 'rgba(26, 86, 219, 0.3)',
+                            '& .engage-photo': { transform: 'scale(1.06)' },
                           }
                         }}
                       >
-                        <CardContent sx={{ p: { xs: 3, sm: 4 } }}>
-                          <Avatar
-                            sx={{
-                              width: 48,
-                              height: 48,
-                              mb: 2,
-                              background: 'linear-gradient(135deg, #1a56db 0%, #0891b2 100%)',
-                            }}
-                          >
-                            {index + 1}
-                          </Avatar>
+                        {/* Header — image pleine largeur avec numéro flottant */}
+                        {item.image && (
+                          <Box sx={{ position: 'relative', overflow: 'hidden' }}>
+                            <Box
+                              component="img"
+                              className="engage-photo"
+                              src={item.image}
+                              alt={item.title}
+                              loading="lazy"
+                              sx={{
+                                width: '100%',
+                                height: { xs: 190, sm: 200 },
+                                objectFit: 'cover',
+                                display: 'block',
+                                transition: 'transform 0.4s ease',
+                              }}
+                            />
+                            <Box
+                              sx={{
+                                position: 'absolute',
+                                inset: 0,
+                                background: 'linear-gradient(to top, rgba(15,23,42,0.45) 0%, transparent 45%)',
+                              }}
+                            />
+                            <Avatar
+                              sx={{
+                                position: 'absolute',
+                                top: 16,
+                                left: 16,
+                                width: 44,
+                                height: 44,
+                                fontWeight: 700,
+                                background: 'linear-gradient(135deg, #1a56db 0%, #0891b2 100%)',
+                                boxShadow: '0 8px 20px -6px rgba(26,86,219,0.5)',
+                              }}
+                            >
+                              {index + 1}
+                            </Avatar>
+                          </Box>
+                        )}
+                        <CardContent sx={{ p: { xs: 3, sm: 4 }, flexGrow: 1 }}>
+                          {!item.image && (
+                            <Avatar
+                              sx={{
+                                width: 48,
+                                height: 48,
+                                mb: 2,
+                                background: 'linear-gradient(135deg, #1a56db 0%, #0891b2 100%)',
+                              }}
+                            >
+                              {index + 1}
+                            </Avatar>
+                          )}
                           <Typography
                             variant="h6"
                             sx={{
@@ -464,32 +513,69 @@ export default function Service() {
                     <Card
                       sx={{
                         height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
                         borderRadius: 3,
+                        overflow: 'hidden',
                         bgcolor: isDark ? '#0f172a' : '#f8fafc',
                         border: '1px solid',
                         borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)',
-                        textAlign: 'center',
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          transform: 'translateY(-6px)',
+                          boxShadow: isDark
+                            ? '0 20px 40px -15px rgba(59, 130, 246, 0.3)'
+                            : '0 20px 40px -15px rgba(26, 86, 219, 0.2)',
+                          borderColor: isDark ? 'rgba(59, 130, 246, 0.4)' : 'rgba(26, 86, 219, 0.3)',
+                          '& .process-photo': { transform: 'scale(1.06)' },
+                        },
                       }}
                     >
-                      <CardContent sx={{ p: { xs: 3, sm: 4 } }}>
+                      {/* Header — image pleine largeur avec icône flottante */}
+                      <Box sx={{ position: 'relative', overflow: 'hidden' }}>
+                        <Box
+                          component="img"
+                          className="process-photo"
+                          src={step.image}
+                          alt={step.title}
+                          loading="lazy"
+                          sx={{
+                            width: '100%',
+                            height: { xs: 180, sm: 190 },
+                            objectFit: 'cover',
+                            display: 'block',
+                            transition: 'transform 0.4s ease',
+                          }}
+                        />
                         <Box
                           sx={{
-                            width: 64,
-                            height: 64,
-                            borderRadius: '50%',
-                            background: isDark 
-                              ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%)'
-                              : 'linear-gradient(135deg, rgba(26, 86, 219, 0.1) 0%, rgba(8, 145, 178, 0.1) 100%)',
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'linear-gradient(to top, rgba(15,23,42,0.45) 0%, transparent 45%)',
+                          }}
+                        />
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: 16,
+                            left: 16,
+                            width: 48,
+                            height: 48,
+                            borderRadius: '12px',
+                            bgcolor: isDark ? '#0f172a' : '#ffffff',
+                            border: '1px solid',
+                            borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.06)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            mx: 'auto',
-                            mb: 2,
                             color: isDark ? '#60a5fa' : '#1a56db',
+                            boxShadow: '0 8px 20px -6px rgba(26,86,219,0.4)',
                           }}
                         >
                           {step.icon}
                         </Box>
+                      </Box>
+                      <CardContent sx={{ p: { xs: 3, sm: 4 }, flexGrow: 1 }}>
                         <Typography
                           variant="h6"
                           sx={{

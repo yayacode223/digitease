@@ -21,15 +21,18 @@ const services=[
         engagements:[
             {
                 title:"Performance",
-                description:"Des applications rapides et optimisées pour tous les appareils."
+                description:"Des applications rapides et optimisées pour tous les appareils.",
+                image:"/services/why/performance.webp"
             },
             {
                 title:"Design",
-                description:"Des interfaces modernes, élégantes et centrées sur l’utilisateur."
+                description:"Des interfaces modernes, élégantes et centrées sur l’utilisateur.",
+                image:"/services/why/design.webp"
             },
             {
                 title:'Fiabilité',
-                description:'Un code maintenable et des solutions évolutives sur le long terme.'
+                description:'Un code maintenable et des solutions évolutives sur le long terme.',
+                image:"/services/why/fiability.webp"
             }
         ]
     },
