@@ -89,7 +89,7 @@ const Services = () => {
               mb: 3,
             }} />
 
-            <Typography
+            {/* <Typography
               sx={{
                 fontSize: { xs: '0.95rem', md: '1.0625rem' },
                 color: isDark ? '#64748b' : '#64748b',
@@ -99,7 +99,7 @@ const Services = () => {
               }}
             >
               Toutes les technologies de pointe pour vous offrir des services uniques et adaptés à vos besoins
-            </Typography>
+            </Typography> */}
           </Box>
 
           {/* Services Grid */}
