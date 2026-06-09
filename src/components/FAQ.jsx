@@ -258,11 +258,11 @@ const FAQ = () => {
             </Typography>
           </Box>
 
-          {/* Deux colonnes : image à gauche, questions à droite */}
+          {/* Deux colonnes : questions à gauche, image à droite */}
           <Grid container spacing={{ xs: 4, md: 6 }} alignItems="flex-start">
 
-            {/* Colonne gauche — image (sticky sur desktop) */}
-            <Grid size={{ xs: 12, md: 5 }}>
+            {/* Colonne droite — image (sticky sur desktop) */}
+            <Grid size={{ xs: 12, md: 5 }} sx={{ order: { xs: 0, md: 2 } }}>
               <Box sx={{ position: { md: 'sticky' }, top: { md: 104 } }}>
                 <Box sx={{ position: 'relative', mx: 'auto', maxWidth: { xs: 300, sm: 340, md: '100%' } }}>
                   {/* Lueur d'accent derrière l'image */}
@@ -299,8 +299,8 @@ const FAQ = () => {
               </Box>
             </Grid>
 
-            {/* Colonne droite — questions */}
-            <Grid size={{ xs: 12, md: 7 }}>
+            {/* Colonne gauche — questions */}
+            <Grid size={{ xs: 12, md: 7 }} sx={{ order: { xs: 0, md: 1 } }}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                 {questions.map((item, index) => (
 
