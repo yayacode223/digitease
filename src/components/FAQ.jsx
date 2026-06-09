@@ -7,6 +7,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -178,7 +179,7 @@ const FAQ = () => {
         transition: 'background-color 0.3s ease',
       }}
     >
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -257,9 +258,51 @@ const FAQ = () => {
             </Typography>
           </Box>
 
-          {/* Accordion list */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-            {questions.map((item, index) => (
+          {/* Deux colonnes : image à gauche, questions à droite */}
+          <Grid container spacing={{ xs: 4, md: 6 }} alignItems="flex-start">
+
+            {/* Colonne gauche — image (sticky sur desktop) */}
+            <Grid size={{ xs: 12, md: 5 }}>
+              <Box sx={{ position: { md: 'sticky' }, top: { md: 104 } }}>
+                <Box sx={{ position: 'relative', mx: 'auto', maxWidth: { xs: 300, sm: 340, md: '100%' } }}>
+                  {/* Lueur d'accent derrière l'image */}
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      inset: -18,
+                      borderRadius: '24px',
+                      background: 'linear-gradient(135deg, rgba(37,99,235,0.18) 0%, rgba(8,145,178,0.18) 100%)',
+                      filter: 'blur(28px)',
+                      zIndex: 0,
+                    }}
+                  />
+                  <Box
+                    component="img"
+                    src="/faq/faq.webp"
+                    alt="Une question ? DigitEase vous répond"
+                    loading="lazy"
+                    sx={{
+                      position: 'relative',
+                      zIndex: 1,
+                      width: '100%',
+                      height: 'auto',
+                      display: 'block',
+                      borderRadius: '16px',
+                      border: '1px solid',
+                      borderColor: isDark ? 'rgba(255,255,255,0.08)' : '#e2e8f0',
+                      boxShadow: isDark
+                        ? '0 24px 48px -16px rgba(0,0,0,0.6)'
+                        : '0 24px 48px -16px rgba(15,23,42,0.18)',
+                    }}
+                  />
+                </Box>
+              </Box>
+            </Grid>
+
+            {/* Colonne droite — questions */}
+            <Grid size={{ xs: 12, md: 7 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+                {questions.map((item, index) => (
 
               <motion.div
                 key={index}
@@ -312,8 +355,11 @@ const FAQ = () => {
                   </AccordionDetails>
                 </Accordion>
               </motion.div>
-            ))}
-          </Box>
+                ))}
+              </Box>
+            </Grid>
+
+          </Grid>
 
           {/* CTA de sortie */}
           <Box

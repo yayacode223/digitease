@@ -110,7 +110,7 @@ const Hero = () => {
 
               {/* Terminal badge */}
               <motion.div variants={itemVariants}>
-                <Box
+                {/* <Box
                   sx={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -124,7 +124,7 @@ const Hero = () => {
                     backdropFilter: 'blur(8px)',
                   }}
                 >
-                  {/* <TerminalIcon sx={{ fontSize: 14, color: '#60a5fa' }} />
+                  <TerminalIcon sx={{ fontSize: 14, color: '#60a5fa' }} />
                   <Typography sx={{
                     fontFamily: '"Fira Code", "Courier New", monospace',
                     fontSize: '0.78rem',
@@ -133,8 +133,8 @@ const Hero = () => {
                     letterSpacing: '0.02em',
                   }}>
                     digitease.init() → Solutions Digitales
-                  </Typography> */}
-                </Box>
+                  </Typography>
+                </Box> */}
               </motion.div>
 
               {/* Headline */}
@@ -162,7 +162,7 @@ const Hero = () => {
                       backgroundClip: 'text',
                     }}
                   >
-                    votre business
+                    vos business
                   </Box>
                 </Typography>
               </motion.div>
