@@ -23,7 +23,7 @@ const equipes = [
         network: {
             facebook: "https://facebook.com/sidiki.dao.7",
             linkedin: "https://www.linkedin.com/in/sidiki-dogotu-dao-b75bb539a",
-            email: "sidiki@mail.com"
+            email: "sidikiensias@gmail.com"
         }
     },
     {
