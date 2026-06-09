@@ -770,12 +770,42 @@ export default function Service() {
       {/* CTA Section */}
       <Box
         sx={{
-          py: { xs: 8, md: 12 },
-          background: 'linear-gradient(135deg, #1a56db 0%, #0891b2 100%)',
+          position: 'relative',
+          overflow: 'hidden',
+          py: { xs: 6, md: 9 },
+          mb: { xs: 6, md: 8 },
           textAlign: 'center',
+          bgcolor: '#0b1120',
         }}
       >
-        <Container maxWidth="md">
+        {/* Image de fond */}
+        <Box
+          component="img"
+          src="/cta/cta.webp"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            zIndex: 0,
+          }}
+        />
+        {/* Voile de marque pour la lisibilité du texte */}
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 1,
+            background: 'linear-gradient(135deg, rgba(26,86,219,0.92) 0%, rgba(8,145,178,0.88) 100%)',
+          }}
+        />
+
+        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 2 }}>
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
