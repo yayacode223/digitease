@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
-import { SiReact, SiNodedotjs, SiPython, SiAmazonwebservices, SiDocker } from 'react-icons/si';
+import { SiReact, SiNodedotjs, SiPython, SiOpenjdk, SiSpringboot, SiAmazonwebservices, SiDocker } from 'react-icons/si';
 // import { hero_img } from '../assets'; // visuel latéral désactivé pour le moment — le background.png sert d'image principale
 import { motion } from 'framer-motion';
 import Box from '@mui/material/Box';
@@ -16,6 +16,8 @@ const techStack = [
   { icon: <SiReact size={13} />, label: 'React' },
   { icon: <SiNodedotjs size={13} />, label: 'Node.js' },
   { icon: <SiPython size={13} />, label: 'Python' },
+  { icon: <SiOpenjdk size={13} />, label: 'Java' },
+  { icon: <SiSpringboot size={13} />, label: 'Spring Boot' },
   { icon: <SiAmazonwebservices size={13} />, label: 'AWS' },
   { icon: <SiDocker size={13} />, label: 'Docker' },
 ];

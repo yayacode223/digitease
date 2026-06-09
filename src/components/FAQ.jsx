@@ -247,7 +247,7 @@ const FAQ = () => {
               mb: 2.5,
             }} />
 
-            <Typography sx={{
+            {/* <Typography sx={{
               fontSize: { xs: '0.9rem', md: '1rem' },
               color: isDark ? '#64748b' : '#64748b',
               maxWidth: '440px',
@@ -255,7 +255,7 @@ const FAQ = () => {
               lineHeight: 1.7,
             }}>
               Vos doutes clarifiés en quelques réponses
-            </Typography>
+            </Typography> */}
           </Box>
 
           {/* Deux colonnes : questions à gauche, image à droite */}
