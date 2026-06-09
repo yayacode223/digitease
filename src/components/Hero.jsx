@@ -124,7 +124,7 @@ const Hero = () => {
                     backdropFilter: 'blur(8px)',
                   }}
                 >
-                  <TerminalIcon sx={{ fontSize: 14, color: '#60a5fa' }} />
+                  {/* <TerminalIcon sx={{ fontSize: 14, color: '#60a5fa' }} />
                   <Typography sx={{
                     fontFamily: '"Fira Code", "Courier New", monospace',
                     fontSize: '0.78rem',
@@ -133,7 +133,7 @@ const Hero = () => {
                     letterSpacing: '0.02em',
                   }}>
                     digitease.init() → Solutions Digitales
-                  </Typography>
+                  </Typography> */}
                 </Box>
               </motion.div>
 

@@ -87,7 +87,7 @@ const Equipes = () => {
               mb: 3,
             }} />
 
-            <Typography
+            {/* <Typography
               sx={{
                 fontSize: { xs: '0.95rem', md: '1.0625rem' },
                 color: isDark ? '#64748b' : '#64748b',
@@ -97,7 +97,7 @@ const Equipes = () => {
               }}
             >
               Des professionnels dédiés à votre réussite digitale
-            </Typography>
+            </Typography> */}
           </Box>
 
           {/* Team Grid */}
