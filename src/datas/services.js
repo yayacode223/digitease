@@ -54,15 +54,18 @@ const services=[
         engagements:[
             {
                 title:"Précision",
-                description:"Des modèles IA entraînés et calibrés pour offrir des résultats fiables et pertinents."
+                description:"Des modèles IA entraînés et calibrés pour offrir des résultats fiables et pertinents.",
+                image:"/services/why-ai/precision.webp"
             },
             {
                 title:"Innovation",
-                description:"Des solutions basées sur les dernières avancées en machine learning et deep learning."
+                description:"Des solutions basées sur les dernières avancées en machine learning et deep learning.",
+                image:"/services/why-ai/innovation.webp"
             },
             {
                 title:"Sécurité & Éthique",
-                description:"Un respect strict de la confidentialité des données et des pratiques responsables."
+                description:"Un respect strict de la confidentialité des données et des pratiques responsables.",
+                image:"/services/why-ai/security-ethique.webp"
             }
         ]
     },
@@ -83,15 +86,18 @@ const services=[
         engagements:[
             {
                 title:"Scalabilité",
-                description:"Des infrastructures capables de s’adapter automatiquement à votre croissance."
+                description:"Des infrastructures capables de s’adapter automatiquement à votre croissance.",
+                image:"/services/why-cloud/scalability.webp"
             },
             {
                 title:"Fiabilité",
-                description:"Haute disponibilité et tolérance aux pannes pour assurer la continuité de service."
+                description:"Haute disponibilité et tolérance aux pannes pour assurer la continuité de service.",
+                image:"/services/why-cloud/fiability.webp"
             },
             {
                 title:"Sécurité",
-                description:"Un cloud conforme aux normes (RGPD, sauvegardes, monitoring) pour protéger vos données."
+                description:"Un cloud conforme aux normes (RGPD, sauvegardes, monitoring) pour protéger vos données.",
+                image:"/services/why-cloud/security-ethique.webp"
             }
         ]
     }
