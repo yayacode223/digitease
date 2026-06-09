@@ -75,17 +75,51 @@ export default function Service() {
       {/* Hero Section */}
       <Box
         sx={{
+          position: 'relative',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          minHeight: { md: '62vh' },
           pt: { xs: 12, md: 16 },
           pb: { xs: 8, md: 12 },
-          background: isDark 
-            ? 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)'
-            : 'linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #f0f9ff 100%)',
+          bgcolor: '#0b1120',
         }}
       >
-        <Container maxWidth="lg">
+        {/* Image de fond — pleine largeur, visible */}
+        <Box
+          component="img"
+          src={service.image}
+          alt={service.title}
+          loading="eager"
+          fetchpriority="high"
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: { xs: '70% center', md: 'center' },
+            zIndex: 0,
+          }}
+        />
+
+        {/* Voile de lisibilité — sombre à gauche (texte), photo visible à droite */}
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 1,
+            background: {
+              xs: 'linear-gradient(180deg, rgba(7,11,22,0.6) 0%, rgba(7,11,22,0.8) 55%, rgba(7,11,22,0.92) 100%)',
+              md: 'linear-gradient(90deg, rgba(7,11,22,0.93) 0%, rgba(7,11,22,0.78) 35%, rgba(7,11,22,0.42) 65%, rgba(7,11,22,0.12) 88%, rgba(7,11,22,0) 100%)',
+            },
+          }}
+        />
+
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
           {/* Breadcrumb */}
           <Breadcrumbs
-            separator={<NavigateNextIcon sx={{ fontSize: 16, color: isDark ? '#475569' : '#94a3b8' }} />}
+            separator={<NavigateNextIcon sx={{ fontSize: 16, color: 'rgba(255,255,255,0.4)' }} />}
             sx={{ mb: { xs: 4, md: 6 } }}
           >
             <Box
@@ -94,9 +128,9 @@ export default function Service() {
               sx={{
                 display: 'flex', alignItems: 'center', gap: 0.5,
                 border: 'none', background: 'none', cursor: 'pointer', p: 0,
-                color: isDark ? '#64748b' : '#94a3b8',
+                color: 'rgba(255,255,255,0.72)',
                 fontSize: '0.875rem', fontWeight: 500,
-                '&:hover': { color: '#2563eb' },
+                '&:hover': { color: '#ffffff' },
                 transition: 'color 0.2s ease',
               }}
             >
@@ -108,21 +142,21 @@ export default function Service() {
               onClick={() => { navigate('/'); setTimeout(() => { document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}
               sx={{
                 border: 'none', background: 'none', cursor: 'pointer', p: 0,
-                color: isDark ? '#64748b' : '#94a3b8',
+                color: 'rgba(255,255,255,0.72)',
                 fontSize: '0.875rem', fontWeight: 500,
-                '&:hover': { color: '#2563eb' },
+                '&:hover': { color: '#ffffff' },
                 transition: 'color 0.2s ease',
               }}
             >
               Services
             </Box>
-            <Typography sx={{ color: isDark ? '#e2e8f0' : '#0f172a', fontSize: '0.875rem', fontWeight: 600 }}>
+            <Typography sx={{ color: '#ffffff', fontSize: '0.875rem', fontWeight: 600 }}>
               {service.title}
             </Typography>
           </Breadcrumbs>
 
           <Grid container spacing={6} alignItems="center">
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, md: 7 }}>
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -132,8 +166,10 @@ export default function Service() {
                   label="Nos Services"
                   sx={{
                     mb: 3,
-                    bgcolor: isDark ? 'rgba(59, 130, 246, 0.2)' : 'rgba(26, 86, 219, 0.1)',
-                    color: isDark ? '#60a5fa' : '#1a56db',
+                    bgcolor: 'rgba(37, 99, 235, 0.25)',
+                    border: '1px solid rgba(96,165,250,0.45)',
+                    backdropFilter: 'blur(8px)',
+                    color: '#bfdbfe',
                     fontWeight: 600,
                     fontSize: { xs: '0.75rem', sm: '0.875rem' },
                   }}
@@ -144,7 +180,8 @@ export default function Service() {
                     fontFamily: 'Poppins, sans-serif',
                     fontWeight: 800,
                     fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-                    color: isDark ? '#f1f5f9' : '#111827',
+                    color: '#ffffff',
+                    textShadow: '0 2px 24px rgba(0,0,0,0.4)',
                     mb: 3,
                     lineHeight: 1.2,
                   }}
@@ -154,9 +191,11 @@ export default function Service() {
                 <Typography
                   sx={{
                     fontSize: { xs: '1rem', sm: '1.125rem' },
-                    color: isDark ? '#94a3b8' : '#6b7280',
+                    color: 'rgba(241,245,249,0.9)',
+                    textShadow: '0 1px 12px rgba(0,0,0,0.45)',
                     mb: 4,
                     lineHeight: 1.7,
+                    maxWidth: 540,
                   }}
                 >
                   {service.description}
@@ -174,38 +213,15 @@ export default function Service() {
                     textTransform: 'none',
                     fontWeight: 600,
                     fontSize: '1rem',
-                    boxShadow: '0 4px 14px 0 rgba(26, 86, 219, 0.39)',
+                    boxShadow: '0 4px 18px 0 rgba(26, 86, 219, 0.5)',
                     '&:hover': {
                       transform: 'translateY(-2px)',
-                      boxShadow: '0 6px 20px 0 rgba(26, 86, 219, 0.5)',
+                      boxShadow: '0 6px 22px 0 rgba(26, 86, 219, 0.6)',
                     }
                   }}
                 >
                   Nous contacter
                 </Button>
-              </motion.div>
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <Box
-                  component="img"
-                  src={service.image}
-                  alt={service.title}
-                  sx={{
-                    width: '100%',
-                    maxWidth: 500,
-                    borderRadius: 4,
-                    boxShadow: isDark 
-                      ? '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
-                      : '0 25px 50px -12px rgba(0, 0, 0, 0.15)',
-                    display: { xs: 'none', sm: 'block' },
-                    mx: 'auto',
-                  }}
-                />
               </motion.div>
             </Grid>
           </Grid>
@@ -665,7 +681,10 @@ export default function Service() {
                         <Card
                           sx={{
                             height: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
                             borderRadius: 3,
+                            overflow: 'hidden',
                             bgcolor: isDark ? '#0f172a' : '#ffffff',
                             border: '1px solid',
                             borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)',
@@ -678,11 +697,29 @@ export default function Service() {
                               boxShadow: isDark
                                 ? '0 16px 32px -8px rgba(37,99,235,0.25)'
                                 : '0 16px 32px -8px rgba(37,99,235,0.15)',
+                              '& .other-photo': { transform: 'scale(1.06)' },
                             },
                           }}
                           onClick={() => navigate(`/services/${other.id}`)}
                         >
-                          <CardContent sx={{ p: { xs: 3, sm: 4 } }}>
+                          {/* Header — image pleine largeur */}
+                          <Box sx={{ position: 'relative', overflow: 'hidden' }}>
+                            <Box
+                              component="img"
+                              className="other-photo"
+                              src={other.image}
+                              alt={other.title}
+                              loading="lazy"
+                              sx={{
+                                width: '100%',
+                                height: { xs: 170, sm: 180 },
+                                objectFit: 'cover',
+                                display: 'block',
+                                transition: 'transform 0.4s ease',
+                              }}
+                            />
+                          </Box>
+                          <CardContent sx={{ p: { xs: 3, sm: 4 }, flexGrow: 1 }}>
                             <Typography
                               variant="h6"
                               sx={{
