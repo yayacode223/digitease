@@ -35,38 +35,65 @@ const Footer = () => {
     },
   ];
 
+  const socialLinks = [
+    { icon: <BsFacebook size={15} />, label: 'Facebook' },
+    { icon: <FaInstagramSquare size={15} />, label: 'Instagram' },
+    { icon: <IoLogoYoutube size={15} />, label: 'YouTube' },
+    { icon: <FaSquareXTwitter size={15} />, label: 'X / Twitter' },
+  ];
+
+  const headingSx = {
+    fontWeight: 600,
+    color: 'rgba(255,255,255,0.85)',
+    mb: 2,
+    fontSize: '0.72rem',
+    textTransform: 'uppercase',
+    letterSpacing: '0.08em',
+  };
+  const linkSx = {
+    color: 'rgba(255,255,255,0.5)',
+    fontSize: '0.8125rem',
+    textDecoration: 'none',
+    transition: 'color 0.15s ease',
+    '&:hover': { color: '#ffffff' },
+  };
+  const socialBtnSx = {
+    bgcolor: 'rgba(255,255,255,0.05)',
+    border: '1px solid rgba(255,255,255,0.08)',
+    color: 'rgba(255,255,255,0.5)',
+    transition: 'all 0.2s ease',
+    '&:hover': { bgcolor: '#2563eb', borderColor: '#2563eb', color: '#fff' },
+  };
+
   return (
     <Box
       component="footer"
-      sx={{ bgcolor: '#0f172a', pt: { xs: 7, sm: 9, md: 10 }, pb: 5 }}
+      sx={{ bgcolor: '#0f172a', pt: { xs: 6, sm: 7, md: 8 }, pb: 4 }}
     >
       <Container maxWidth="lg">
-        {/* Main content */}
-        <Grid container spacing={{ xs: 5, md: 6 }} sx={{ mb: 6 }}>
+        {/* Main content — compact 3 colonnes */}
+        <Grid container spacing={{ xs: 4, md: 6 }} sx={{ mb: 4.5 }}>
 
-          {/* Brand column */}
-          <Grid size={{ xs: 12, md: 4 }}>
+          {/* Marque + contact */}
+          <Grid size={{ xs: 12, md: 5 }}>
             <Box
               component="img"
               src={digiteaseLogoDark}
               alt="DigitEase"
-              sx={{ height: 42, width: 'auto', objectFit: 'contain', mb: 2.5 }}
+              sx={{ height: 40, width: 'auto', objectFit: 'contain', mb: 2 }}
             />
             <Typography
               sx={{
-                color: 'rgba(255,255,255,0.45)',
-                mb: 4,
-                lineHeight: 1.8,
+                color: 'rgba(255,255,255,0.5)',
+                mb: 2.75,
+                lineHeight: 1.7,
                 fontSize: '0.875rem',
-                maxWidth: '270px',
+                maxWidth: 320,
               }}
             >
-              Votre partenaire de confiance pour la transformation digitale.
-              Web, IA et Cloud pour propulser votre entreprise.
+              Votre partenaire pour la transformation digitale — Web, IA et Cloud.
             </Typography>
-
-            {/* Contact info */}
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.75 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.25 }}>
               {[
                 { icon: <FaMapMarkerAlt size={12} />, text: 'Casablanca, Maroc' },
                 { icon: <FaPhone size={12} />, text: '+212 7 79 95 49 88' },
@@ -74,7 +101,7 @@ const Footer = () => {
               ].map((item, index) => (
                 <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
                   <Box sx={{ color: '#2563eb', flexShrink: 0 }}>{item.icon}</Box>
-                  <Typography sx={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.8125rem' }}>
+                  <Typography sx={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.8125rem' }}>
                     {item.text}
                   </Typography>
                 </Box>
@@ -82,76 +109,32 @@ const Footer = () => {
             </Box>
           </Grid>
 
-          {/* Links columns */}
-          {footerLinks.map((section, index) => (
-            <Grid size={{ xs: 6, sm: 4, md: 2 }} key={index}>
-              <Typography
-                sx={{
-                  fontWeight: 600,
-                  color: 'rgba(255,255,255,0.8)',
-                  mb: 2.5,
-                  fontSize: '0.875rem',
-                  letterSpacing: '0.01em',
-                }}
-              >
-                {section.title}
-              </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-                {section.links.map((link, i) => (
-                  <Typography
-                    key={i}
-                    component="a"
-                    href={link.href}
-                    sx={{
-                      color: 'rgba(255,255,255,0.38)',
-                      fontSize: '0.8125rem',
-                      textDecoration: 'none',
-                      transition: 'color 0.15s ease',
-                      '&:hover': { color: 'rgba(255,255,255,0.8)' },
-                    }}
-                  >
-                    {link.label}
-                  </Typography>
-                ))}
-              </Box>
-            </Grid>
-          ))}
+          {/* Navigation */}
+          <Grid size={{ xs: 6, md: 3 }}>
+            <Typography sx={headingSx}>{footerLinks[0].title}</Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.25 }}>
+              {footerLinks[0].links.map((link, i) => (
+                <Typography key={i} component="a" href={link.href} sx={linkSx}>
+                  {link.label}
+                </Typography>
+              ))}
+            </Box>
+          </Grid>
 
-          {/* Social column */}
-          <Grid size={{ xs: 12, sm: 4, md: 2 }}>
-            <Typography
-              sx={{
-                fontWeight: 600,
-                color: 'rgba(255,255,255,0.8)',
-                mb: 2.5,
-                fontSize: '0.875rem',
-              }}
-            >
-              Suivez-nous
-            </Typography>
+          {/* Services + réseaux */}
+          <Grid size={{ xs: 6, md: 4 }}>
+            <Typography sx={headingSx}>{footerLinks[1].title}</Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.25, mb: 3 }}>
+              {footerLinks[1].links.map((link, i) => (
+                <Typography key={i} component="a" href={link.href} sx={linkSx}>
+                  {link.label}
+                </Typography>
+              ))}
+            </Box>
+            <Typography sx={headingSx}>Suivez-nous</Typography>
             <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-              {[
-                { icon: <BsFacebook size={15} />, label: 'Facebook' },
-                { icon: <FaInstagramSquare size={15} />, label: 'Instagram' },
-                { icon: <IoLogoYoutube size={15} />, label: 'YouTube' },
-                { icon: <FaSquareXTwitter size={15} />, label: 'X / Twitter' },
-              ].map((social, i) => (
-                <IconButton
-                  key={i}
-                  aria-label={social.label}
-                  size="small"
-                  sx={{
-                    bgcolor: 'rgba(255,255,255,0.05)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    color: 'rgba(255,255,255,0.4)',
-                    transition: 'all 0.2s ease',
-                    '&:hover': {
-                      bgcolor: '#2563eb',
-                      borderColor: '#2563eb',
-                      color: '#fff',
-                    },
-                  }}
-                >
+              {socialLinks.map((social, i) => (
+                <IconButton key={i} aria-label={social.label} size="small" sx={socialBtnSx}>
                   {social.icon}
                 </IconButton>
               ))}

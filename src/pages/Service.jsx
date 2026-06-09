@@ -70,7 +70,7 @@ export default function Service() {
 
   return (
     <Box sx={{ bgcolor: isDark ? '#0f172a' : '#ffffff', minHeight: '100vh', transition: 'background-color 0.3s ease' }}>
-      <Navbar isHome={false} />
+      <Navbar isHome={false} darkHero />
       
       {/* Hero Section */}
       <Box
@@ -801,7 +801,7 @@ export default function Service() {
             position: 'absolute',
             inset: 0,
             zIndex: 1,
-            background: 'linear-gradient(135deg, rgba(26,86,219,0.92) 0%, rgba(8,145,178,0.88) 100%)',
+            background: 'linear-gradient(135deg, rgba(26,86,219,0.66) 0%, rgba(8,145,178,0.58) 100%)',
           }}
         />
 
@@ -819,6 +819,7 @@ export default function Service() {
                 fontWeight: 700,
                 fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
                 color: '#ffffff',
+                textShadow: '0 2px 18px rgba(0,0,0,0.4)',
                 mb: 2,
               }}
             >
@@ -826,7 +827,8 @@ export default function Service() {
             </Typography>
             <Typography
               sx={{
-                color: 'rgba(255,255,255,0.85)',
+                color: 'rgba(255,255,255,0.92)',
+                textShadow: '0 1px 12px rgba(0,0,0,0.35)',
                 fontSize: { xs: '1rem', sm: '1.125rem' },
                 mb: 4,
                 maxWidth: 500,

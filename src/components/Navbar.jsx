@@ -20,7 +20,7 @@ import Divider from '@mui/material/Divider';
 import { useTheme } from '../contexts/ThemeContext';
 import { digiteaseLogo, digiteaseLogoDark } from '../assets';
 
-const Navbar = ({ isHome }) => {
+const Navbar = ({ isHome, darkHero = false }) => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -80,8 +80,8 @@ const Navbar = ({ isHome }) => {
 
   // Le fond derrière la navbar est-il sombre ? (pilote le traitement clair/foncé)
   // - scrollée : fond plein blanc (clair) ou navy (sombre) selon le thème
-  // - en haut  : le Home a un hero sombre ; les autres pages suivent le thème
-  const surfaceIsDark = scrolled ? isDark : (isHome || isDark);
+  // - en haut  : Home + pages à hero sombre (darkHero) ont un fond sombre ; sinon suit le thème
+  const surfaceIsDark = scrolled ? isDark : (isHome || darkHero || isDark);
   // Onglets superposés au hero sombre du Home (navbar transparente)
   const overHero = isHome && !scrolled;
 

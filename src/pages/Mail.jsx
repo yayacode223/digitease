@@ -84,39 +84,68 @@ export default function Mail() {
 
   return (
     <>
-      <Navbar isHome={false} />
+      <Navbar isHome={false} darkHero />
       <Box
         sx={{
           minHeight: "100vh",
-          pt: { xs: 10, md: 12 },
           bgcolor: isDark ? "#0f172a" : "#f8fafc",
           transition: "background-color 0.3s ease",
         }}
       >
-        {/* Header */}
+        {/* Header — image de fond pleine largeur */}
         <Box
           sx={{
-            py: { xs: 6, md: 8 },
-            background: isDark
-              ? "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)"
-              : "linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #f0f9ff 100%)",
+            position: "relative",
+            overflow: "hidden",
+            pt: { xs: 12, md: 15 },
+            pb: { xs: 8, md: 11 },
             textAlign: "center",
-            transition: "background 0.3s ease",
+            bgcolor: "#0b1120",
           }}
         >
-          <Container maxWidth="md">
+          {/* Image de fond */}
+          <Box
+            component="img"
+            src="/contact/contact.webp"
+            alt=""
+            aria-hidden="true"
+            loading="eager"
+            fetchPriority="high"
+            sx={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: { xs: "70% center", md: "center" },
+              zIndex: 0,
+            }}
+          />
+          {/* Voile de lisibilité */}
+          <Box
+            sx={{
+              position: "absolute",
+              inset: 0,
+              zIndex: 1,
+              background:
+                "linear-gradient(180deg, rgba(7,11,22,0.62) 0%, rgba(7,11,22,0.7) 55%, rgba(11,17,32,0.8) 100%)",
+            }}
+          />
+          <Container maxWidth="md" sx={{ position: "relative", zIndex: 2 }}>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
               <Chip
-                icon={<EmailIcon sx={{ fontSize: 18, color: isDark ? "#60a5fa" : "#1a56db" }} />}
+                icon={<EmailIcon sx={{ fontSize: 18, color: "#bfdbfe" }} />}
                 label="Formulaire de contact"
                 sx={{
                   mb: 3,
-                  bgcolor: isDark ? "rgba(59,130,246,0.2)" : "rgba(26,86,219,0.1)",
-                  color: isDark ? "#60a5fa" : "#1a56db",
+                  bgcolor: "rgba(37,99,235,0.25)",
+                  border: "1px solid rgba(96,165,250,0.45)",
+                  backdropFilter: "blur(8px)",
+                  color: "#bfdbfe",
                   fontWeight: 600,
                   fontSize: "0.875rem",
                   py: 2.5,
@@ -129,19 +158,20 @@ export default function Mail() {
                 sx={{
                   fontWeight: 800,
                   fontSize: { xs: "2rem", md: "2.75rem" },
-                  color: isDark ? "#f1f5f9" : "#0f172a",
+                  color: "#ffffff",
+                  textShadow: "0 2px 20px rgba(0,0,0,0.45)",
                   mb: 2,
                   letterSpacing: "-0.02em",
-                  transition: "color 0.3s ease",
                 }}
               >
                 Envoyez-nous un{" "}
                 <Box
                   component="span"
                   sx={{
-                    background: "linear-gradient(135deg, #1a56db 0%, #0891b2 100%)",
+                    background: "linear-gradient(135deg, #60a5fa 0%, #22d3ee 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
                   }}
                 >
                   message
@@ -149,7 +179,8 @@ export default function Mail() {
               </Typography>
               <Typography
                 sx={{
-                  color: isDark ? "#94a3b8" : "#6b7280",
+                  color: "rgba(241,245,249,0.92)",
+                  textShadow: "0 1px 12px rgba(0,0,0,0.4)",
                   fontSize: { xs: "1rem", md: "1.125rem" },
                   lineHeight: 1.8,
                 }}
