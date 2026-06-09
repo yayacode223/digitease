@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaArrowRight, FaCheckCircle } from 'react-icons/fa';
+import { FaArrowRight } from 'react-icons/fa';
 import { SiReact, SiNodedotjs, SiPython, SiAmazonwebservices, SiDocker } from 'react-icons/si';
-import { hero_img } from '../assets';
+// import { hero_img } from '../assets'; // visuel latéral désactivé pour le moment — le background.png sert d'image principale
 import { motion } from 'framer-motion';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -41,66 +41,71 @@ const Hero = () => {
     },
   };
 
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.96, x: 30 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      x: 0,
-      transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
-    },
-  };
-
   return (
     <Box
       id="hero"
       sx={{
+        position: 'relative',
         minHeight: { xs: 'auto', md: '92vh' },
         display: 'flex',
         alignItems: 'center',
-        pt: { xs: 11, sm: 12, md: 14 },
-        pb: { xs: 7, sm: 8, md: 10 },
-        position: 'relative',
+        pt: { xs: 12, sm: 13, md: 14 },
+        pb: { xs: 8, sm: 9, md: 10 },
         overflow: 'hidden',
-        bgcolor: isDark ? '#0b1120' : '#ffffff',
+        bgcolor: isDark ? '#0b1120' : '#0f172a',
       }}
     >
-      {/* Grid-line background — tech/Vercel style */}
+      {/* Image de fond — pleine largeur, visible */}
       <Box
+        component="img"
+        src="/heros/background.png"
+        alt="DigitEase — accompagnement et transformation digitale"
+        loading="eager"
+        fetchpriority="high"
         sx={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: isDark
-            ? `linear-gradient(rgba(37,99,235,0.07) 1px, transparent 1px),
-               linear-gradient(90deg, rgba(37,99,235,0.07) 1px, transparent 1px)`
-            : `linear-gradient(rgba(37,99,235,0.05) 1px, transparent 1px),
-               linear-gradient(90deg, rgba(37,99,235,0.05) 1px, transparent 1px)`,
-          backgroundSize: '48px 48px',
-          maskImage: 'radial-gradient(ellipse 80% 70% at 50% 0%, black 60%, transparent 100%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 80% 70% at 50% 0%, black 60%, transparent 100%)',
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: { xs: '72% center', md: 'center' },
           zIndex: 0,
         }}
       />
 
-      {/* Glow blobs */}
-      <Box sx={{
-        position: 'absolute', top: '-5%', right: '10%',
-        width: 500, height: 500,
-        background: 'radial-gradient(circle, rgba(37,99,235,0.1) 0%, transparent 65%)',
-        filter: 'blur(60px)', zIndex: 0,
-      }} />
-      <Box sx={{
-        position: 'absolute', bottom: '-10%', left: '-5%',
-        width: 400, height: 400,
-        background: 'radial-gradient(circle, rgba(8,145,178,0.08) 0%, transparent 65%)',
-        filter: 'blur(80px)', zIndex: 0,
-      }} />
+      {/* Voile de lisibilité — sombre à gauche (texte), transparent à droite (photo visible) */}
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 1,
+          background: {
+            xs: 'linear-gradient(180deg, rgba(7,11,22,0.55) 0%, rgba(7,11,22,0.78) 55%, rgba(7,11,22,0.9) 100%)',
+            md: 'linear-gradient(90deg, rgba(7,11,22,0.94) 0%, rgba(7,11,22,0.78) 32%, rgba(7,11,22,0.4) 62%, rgba(7,11,22,0.1) 85%, rgba(7,11,22,0) 100%)',
+          },
+        }}
+      />
 
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+      {/* Lueur d'accent subtile */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '-10%',
+          left: '-5%',
+          width: 460,
+          height: 460,
+          background: 'radial-gradient(circle, rgba(37,99,235,0.22) 0%, transparent 65%)',
+          filter: 'blur(70px)',
+          zIndex: 1,
+          pointerEvents: 'none',
+        }}
+      />
+
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
         <Grid container spacing={{ xs: 5, md: 8 }} alignItems="center">
 
-          {/* Left — text */}
-          <Grid size={{ xs: 12, md: 6 }}>
+          {/* Texte — flotte au-dessus du background */}
+          <Grid size={{ xs: 12, md: 7 }}>
             <motion.div variants={containerVariants} initial="hidden" animate="visible">
 
               {/* Terminal badge */}
@@ -114,17 +119,17 @@ const Hero = () => {
                     px: 1.5,
                     py: 0.625,
                     borderRadius: '6px',
-                    bgcolor: isDark ? 'rgba(37,99,235,0.12)' : 'rgba(37,99,235,0.07)',
-                    border: '1px solid',
-                    borderColor: isDark ? 'rgba(37,99,235,0.28)' : 'rgba(37,99,235,0.15)',
+                    bgcolor: 'rgba(37,99,235,0.18)',
+                    border: '1px solid rgba(96,165,250,0.4)',
+                    backdropFilter: 'blur(8px)',
                   }}
                 >
-                  <TerminalIcon sx={{ fontSize: 14, color: '#2563eb' }} />
+                  <TerminalIcon sx={{ fontSize: 14, color: '#60a5fa' }} />
                   <Typography sx={{
                     fontFamily: '"Fira Code", "Courier New", monospace',
                     fontSize: '0.78rem',
                     fontWeight: 500,
-                    color: '#2563eb',
+                    color: '#93c5fd',
                     letterSpacing: '0.02em',
                   }}>
                     digitease.init() → Solutions Digitales
@@ -142,7 +147,8 @@ const Hero = () => {
                     fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem', lg: '3.875rem' },
                     lineHeight: 1.08,
                     letterSpacing: '-0.035em',
-                    color: isDark ? '#f1f5f9' : '#0f172a',
+                    color: '#ffffff',
+                    textShadow: '0 2px 24px rgba(0,0,0,0.35)',
                     mb: 2.5,
                   }}
                 >
@@ -150,7 +156,7 @@ const Hero = () => {
                   <Box
                     component="span"
                     sx={{
-                      background: 'linear-gradient(135deg, #2563eb 20%, #0891b2 100%)',
+                      background: 'linear-gradient(135deg, #60a5fa 20%, #22d3ee 100%)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
@@ -167,9 +173,10 @@ const Hero = () => {
                   sx={{
                     fontSize: { xs: '1rem', md: '1.075rem' },
                     lineHeight: 1.8,
-                    color: isDark ? '#64748b' : '#64748b',
+                    color: 'rgba(241,245,249,0.88)',
+                    textShadow: '0 1px 12px rgba(0,0,0,0.4)',
                     mb: 4.5,
-                    maxWidth: '500px',
+                    maxWidth: '520px',
                   }}
                 >
                   Nous transformons vos idées en solutions digitales performantes.
@@ -193,11 +200,11 @@ const Hero = () => {
                       fontSize: '0.9375rem',
                       fontWeight: 600,
                       textTransform: 'none',
-                      boxShadow: '0 4px 14px 0 rgba(37,99,235,0.28)',
+                      boxShadow: '0 4px 20px 0 rgba(37,99,235,0.5)',
                       '&:hover': {
-                        bgcolor: '#1e40af',
+                        bgcolor: '#1d4ed8',
                         transform: 'translateY(-2px)',
-                        boxShadow: '0 8px 24px -4px rgba(37,99,235,0.45)',
+                        boxShadow: '0 10px 28px -4px rgba(37,99,235,0.6)',
                       },
                       transition: 'all 0.2s ease',
                     }}
@@ -216,14 +223,15 @@ const Hero = () => {
                       fontSize: '0.9375rem',
                       fontWeight: 600,
                       textTransform: 'none',
-                      borderColor: isDark ? 'rgba(255,255,255,0.12)' : '#e2e8f0',
+                      borderColor: 'rgba(255,255,255,0.4)',
                       borderWidth: '1.5px',
-                      color: isDark ? '#cbd5e1' : '#374151',
+                      color: '#ffffff',
+                      backdropFilter: 'blur(8px)',
+                      bgcolor: 'rgba(255,255,255,0.06)',
                       '&:hover': {
-                        borderColor: '#2563eb',
+                        borderColor: '#ffffff',
                         borderWidth: '1.5px',
-                        bgcolor: 'rgba(37,99,235,0.05)',
-                        color: '#2563eb',
+                        bgcolor: 'rgba(255,255,255,0.14)',
                       },
                       transition: 'all 0.2s ease',
                     }}
@@ -239,7 +247,7 @@ const Hero = () => {
                   <Typography sx={{
                     fontSize: '0.75rem',
                     fontWeight: 500,
-                    color: isDark ? '#475569' : '#94a3b8',
+                    color: 'rgba(255,255,255,0.6)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.07em',
                   }}>
@@ -256,16 +264,16 @@ const Hero = () => {
                         px: 1.25,
                         py: 0.5,
                         borderRadius: '5px',
-                        bgcolor: isDark ? 'rgba(255,255,255,0.04)' : '#f1f5f9',
-                        border: '1px solid',
-                        borderColor: isDark ? 'rgba(255,255,255,0.07)' : '#e2e8f0',
-                        color: isDark ? '#94a3b8' : '#64748b',
+                        bgcolor: 'rgba(255,255,255,0.08)',
+                        border: '1px solid rgba(255,255,255,0.16)',
+                        backdropFilter: 'blur(8px)',
+                        color: 'rgba(255,255,255,0.85)',
                         transition: 'all 0.15s ease',
                         cursor: 'default',
                         '&:hover': {
-                          borderColor: '#2563eb',
-                          color: '#2563eb',
-                          bgcolor: isDark ? 'rgba(37,99,235,0.1)' : 'rgba(37,99,235,0.06)',
+                          borderColor: '#60a5fa',
+                          color: '#bfdbfe',
+                          bgcolor: 'rgba(37,99,235,0.22)',
                         },
                       }}
                     >
@@ -282,102 +290,79 @@ const Hero = () => {
             </motion.div>
           </Grid>
 
-          {/* Right — image */}
+          {/* Visuel latéral désactivé pour le moment — le background.png tient lieu d'image principale.
           <Grid size={{ xs: 12, md: 6 }}>
-            <motion.div variants={imageVariants} initial="hidden" animate="visible">
-              <Box sx={{ position: 'relative' }}>
-
-                {/* Main image */}
-                <Box
-                  sx={{
-                    position: 'relative',
-                    borderRadius: '14px',
-                    overflow: 'hidden',
-                    boxShadow: isDark
-                      ? '0 0 0 1px rgba(255,255,255,0.06), 0 24px 48px -12px rgba(0,0,0,0.6)'
-                      : '0 0 0 1px #e2e8f0, 0 24px 48px -12px rgba(0,0,0,0.12)',
-                  }}
-                >
-                  <img
-                    src={hero_img}
-                    alt="DigitEase - Transformation digitale"
-                    style={{ width: '100%', height: 'auto', display: 'block' }}
-                    loading="eager"
-                    fetchpriority="high"
-                  />
-                </Box>
-
-                {/* Floating badge */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7, duration: 0.5 }}
-                >
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      bottom: { xs: -18, md: 28 },
-                      left: { xs: '50%', md: -24 },
-                      transform: { xs: 'translateX(-50%)', md: 'none' },
-                      bgcolor: isDark ? '#0f172a' : '#ffffff',
-                      borderRadius: '10px',
-                      p: '12px 16px',
-                      boxShadow: isDark
-                        ? '0 0 0 1px rgba(255,255,255,0.07), 0 16px 32px -8px rgba(0,0,0,0.5)'
-                        : '0 0 0 1px #e2e8f0, 0 16px 32px -8px rgba(0,0,0,0.12)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 1.5,
-                      minWidth: 200,
-                      zIndex: 2,
-                    }}
-                  >
-                    <Box sx={{ position: 'relative', flexShrink: 0 }}>
-                      <Box sx={{
-                        width: 10, height: 10,
-                        borderRadius: '50%',
-                        bgcolor: '#22c55e',
-                        position: 'relative',
-                        '&::after': {
-                          content: '""',
-                          position: 'absolute',
-                          inset: -3,
-                          borderRadius: '50%',
-                          bgcolor: 'rgba(34,197,94,0.25)',
-                          animation: 'ping 1.8s cubic-bezier(0,0,0.2,1) infinite',
-                        },
-                        '@keyframes ping': {
-                          '0%': { transform: 'scale(1)', opacity: 0.8 },
-                          '100%': { transform: 'scale(2.2)', opacity: 0 },
-                        },
-                      }} />
-                    </Box>
-                    <Box>
-                      <Typography sx={{
-                        fontWeight: 700,
-                        fontSize: '0.85rem',
-                        color: isDark ? '#f1f5f9' : '#0f172a',
-                        lineHeight: 1.25,
-                      }}>
-                        Disponible
-                      </Typography>
-                      <Typography sx={{
-                        fontSize: '0.72rem',
-                        color: isDark ? '#475569' : '#94a3b8',
-                        mt: 0.25,
-                      }}>
-                        Réponse sous 24h
-                      </Typography>
-                    </Box>
-                  </Box>
-                </motion.div>
-
-              </Box>
-            </motion.div>
+            ...ancien <img src={hero_img} /> + badge flottant...
           </Grid>
+          */}
 
         </Grid>
       </Container>
+
+      {/* Badge flottant "Disponible" — flotte au-dessus du background (desktop) */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7, duration: 0.5 }}
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: { md: 40, lg: 56 },
+            right: { md: 40, lg: 72 },
+            display: { xs: 'none', md: 'flex' },
+            alignItems: 'center',
+            gap: 1.5,
+            zIndex: 3,
+            bgcolor: 'rgba(15,23,42,0.7)',
+            border: '1px solid rgba(255,255,255,0.12)',
+            backdropFilter: 'blur(12px)',
+            borderRadius: '10px',
+            p: '12px 16px',
+            boxShadow: '0 16px 32px -8px rgba(0,0,0,0.5)',
+            minWidth: 200,
+          }}
+        >
+          <Box sx={{ position: 'relative', flexShrink: 0 }}>
+            <Box sx={{
+              width: 10, height: 10,
+              borderRadius: '50%',
+              bgcolor: '#22c55e',
+              position: 'relative',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                inset: -3,
+                borderRadius: '50%',
+                bgcolor: 'rgba(34,197,94,0.25)',
+                animation: 'ping 1.8s cubic-bezier(0,0,0.2,1) infinite',
+              },
+              '@keyframes ping': {
+                '0%': { transform: 'scale(1)', opacity: 0.8 },
+                '100%': { transform: 'scale(2.2)', opacity: 0 },
+              },
+            }} />
+          </Box>
+          <Box>
+            <Typography sx={{
+              fontWeight: 700,
+              fontSize: '0.85rem',
+              color: '#f1f5f9',
+              lineHeight: 1.25,
+            }}>
+              Disponible
+            </Typography>
+            <Typography sx={{
+              fontSize: '0.72rem',
+              color: 'rgba(241,245,249,0.6)',
+              mt: 0.25,
+            }}>
+              Réponse sous 24h
+            </Typography>
+          </Box>
+        </Box>
+      </motion.div>
+
     </Box>
   );
 };
